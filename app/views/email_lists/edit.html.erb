@@ -1,0 +1,38 @@
+<h1><%= action_name.capitalize %> Email List</h1>
+
+<%= form_with(model: @email_list, local: true) do |form| %>
+  <% if @email_list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@email_list.errors.count, "error") %> prohibited this email list from being saved:</h2>
+
+      <ul>
+        <% @email_list.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contacts %>
+    <%= form.collection_check_boxes :contact_ids, Contact.all, :id, :name do |cb| %>
+      <div>
+        <%= cb.check_box %>
+        <%= cb.label %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', email_lists_path %>
+
+

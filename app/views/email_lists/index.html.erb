@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag 'email_lists', media: 'all' %>
+
+<h1>Email Lists</h1>
+
+<%= link_to 'New Email List', new_email_list_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Contacts</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @email_lists.each do |email_list| %>
+      <tr>
+        <td><%= email_list.name %></td>
+        <td>
+       <%= "#{email_list.contacts.size}" %>
+        </td>
+        <td><%= link_to 'Show', email_list %></td>
+        <td><%= link_to 'Edit', edit_email_list_path(email_list) %></td>
+        <td><%= button_to 'Destroy', email_list, method: :delete, data: { confirm: 'Are you sure?' }, class: 'link-style' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+  <h2>Document Attached</h2>
+  <p>Hello <%= @contact.name %>,</p>
+  <p>Here is the document you requested:</p>
+  <%= image_tag attachments[@document.original_filename].url, alt: "Document" %>
+</body>
+</html>
