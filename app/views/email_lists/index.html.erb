@@ -20,7 +20,12 @@
         <td>
        <%= "#{email_list.contacts.size}" %>
         </td>
-        <td><%= link_to 'Show', email_list %></td>
+        <% if email_list.contacts.nil? || email_list.contacts.empty? %>
+
+        <% else %>
+          <td><%= link_to 'Show', email_list %></td>
+        <% end %>
+<!--        <td><%#= link_to 'Show', email_list %></td>-->
         <td><%= link_to 'Edit', edit_email_list_path(email_list) %></td>
         <td><%= button_to 'Destroy', email_list, method: :delete, data: { confirm: 'Are you sure?' }, class: 'link-style' %></td>
       </tr>
