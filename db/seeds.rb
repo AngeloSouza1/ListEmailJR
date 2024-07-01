@@ -1,9 +1,20 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# # Limpa todos os registros existentes para evitar duplicatas
+# Contact.destroy_all
 #
-# Example:
+# # Array de usuários com nomes inspirados em personagens famosos
+# users = [
+#   { name: "Harry Potter", email: "angeloafdesouza@gmail.com" },
+#   { name: "Katniss Everdeen", email: "angeloafdesouza@gmail.com" },
+#   { name: "Frodo Baggins", email: "angeloafdesouza@gmail.com" },
+#   { name: "Hermione Granger", email: "angeloafdesouza@gmail.com" },
+#   { name: "Luke Skywalker", email: "angeloafdesouza@gmail.com" }
+# ]
 #
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# # Criação dos usuários
+# users.each do |user|
+#
+#
+#   Contact.create!(user)
+# end
+#
+# puts "Usuários populados com sucesso!"

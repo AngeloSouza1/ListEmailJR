@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_27_150329) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_01_221540) do
   create_table "contacts", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "contacts_email_lists", force: :cascade do |t|
@@ -31,6 +33,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_150329) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_email_lists_on_user_id"
   end
 
   create_table "email_lists_contacts", force: :cascade do |t|
@@ -56,6 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_27_150329) do
 
   add_foreign_key "contacts_email_lists", "contacts"
   add_foreign_key "contacts_email_lists", "email_lists"
+  add_foreign_key "email_lists", "users"
   add_foreign_key "email_lists_contacts", "contacts"
   add_foreign_key "email_lists_contacts", "email_lists"
 end
