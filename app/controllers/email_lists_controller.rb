@@ -41,14 +41,13 @@ class EmailListsController < ApplicationController
   end
 
   def send_document
-    document = params[:document]
-    if document.present? && document.content_type.in?(%w(application/pdf application/msword application/vnd.oasis.opendocument.text))
-      email_list.contacts.each do |contact|
-        DocumentMailer.send_document(contact, document).deliver_now
+    if params[:document].present? && params[:document].content_type.in?(%w(application/pdf application/msword application/vnd.oasis.opendocument.text))
+      @email_list.contacts.each do |contact|
+        DocumentMailer.send_document(contact, params[:document]).deliver_now
       end
-      redirect_to email_list_path(email_list), notice: 'Document was successfully sent to the email list.'
+      redirect_to @email_list, notice: 'Document was successfully sent to the email list.'
     else
-      redirect_to email_list_path(email_list), alert: 'Invalid document type. Please select a PDF, DOC, or ODT file.'
+      redirect_to @email_list, alert: 'Invalid document type.'
     end
   end
 
