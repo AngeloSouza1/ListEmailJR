@@ -20,7 +20,7 @@
 
   <div class="field">
     <%= form.label :contacts %>
-    <%= form.collection_check_boxes :contact_ids, Contact.all, :id, :name do |cb| %>
+    <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
       <div>
         <%= cb.check_box %>
         <%= cb.label %>
