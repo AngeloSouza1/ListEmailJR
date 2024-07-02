@@ -20,8 +20,7 @@
 <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true do |form| %>
   <div class="field">
     <%= form.label :document %>
-    <%= form.file_field :document %>
-  </div>
+    <%= form.file_field :document, accept: '.pdf,.doc,.odt' %>  </div>
 
   <div class="actions">
     <%= form.submit "Send Document" %>
