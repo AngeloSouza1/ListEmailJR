@@ -5,7 +5,7 @@ class EmailListsController < ApplicationController
 
   def index
     @email_lists = current_user.email_lists
-    redirect_to new_email_list_path, notice: "You don't have any email lists yet. Create one now!" if @email_lists.empty?
+    redirect_to new_email_list_path, notice: "Você ainda não tem nenhuma lista de e-mail. Crie um agora!" if @email_lists.empty?
   end
 
   def show
@@ -25,7 +25,7 @@ class EmailListsController < ApplicationController
   def create
     @email_list = current_user.email_lists.build(email_list_params)
     if @email_list.save
-      redirect_to @email_list, notice: 'Email list was successfully created.'
+      redirect_to @email_list, notice: 'A lista de e-mail foi criada com sucesso.'
     else
       render :new
     end
@@ -33,7 +33,7 @@ class EmailListsController < ApplicationController
 
   def update
     if @email_list.update(email_list_params)
-      redirect_to @email_list, notice: 'Email list was successfully updated.'
+      redirect_to @email_list, notice: 'A lista de e-mail foi atualizada com sucesso.'
     else
       render :edit
     end
@@ -41,19 +41,10 @@ class EmailListsController < ApplicationController
 
   def destroy
     @email_list.destroy
-    redirect_to email_lists_url, notice: 'Email list was successfully destroyed.'
+    redirect_to email_lists_url, notice: 'A lista de e-mail foi destruída com sucesso.'
   end
 
-  # def send_document
-  #   if params[:document].present? && params[:document].content_type.in?(%w(application/pdf application/msword application/vnd.oasis.opendocument.text))
-  #     @email_list.contacts.each do |contact|
-  #       DocumentMailer.send_document(contact, params[:document]).deliver_now
-  #     end
-  #     redirect_to @email_list, notice: 'Document was successfully sent to the email list.'
-  #   else
-  #     redirect_to @email_list, alert: 'Invalid document type.'
-  #   end
-  # end
+
 
   def send_document
     if params[:document].present?
@@ -71,22 +62,14 @@ class EmailListsController < ApplicationController
           DocumentMailer.send_document(contact, document).deliver_now
         end
 
-        redirect_to @email_list, notice: 'Document was successfully sent to the email list.'
+        redirect_to @email_list, notice: 'O documento foi enviado com sucesso para a lista de e-mail.'
       rescue StandardError => e
-        redirect_to @email_list, alert: "Failed to send document: #{e.message}"
+        redirect_to @email_list, alert: "Falha ao enviar documento: #{e.message}"
       end
     else
-      redirect_to email_list, alert: 'No document file was attached.'
+      redirect_to @email_list, alert: 'Nenhum arquivo de documento foi anexado.'
     end
   end
-
-
-
-
-
-
-
-
 
   private
 
@@ -99,6 +82,6 @@ class EmailListsController < ApplicationController
   end
 
   def authorize_email_list_access
-    redirect_to root_path, alert: 'Access denied.' unless current_user.email_lists.include?(@email_list)
+    redirect_to root_path, alert: 'Acesso negado.' unless current_user.email_lists.include?(@email_list)
   end
 end
