@@ -20,9 +20,13 @@
 
   <div class="field">
     <%= form.label :contacts %>
+    <div>
+      <input type="checkbox" id="select_all_contacts" />
+      <label for="select_all_contacts">Selecionar Todos</label>
+    </div>
     <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
       <div>
-        <%= cb.check_box %>
+        <%= cb.check_box class: 'contact_checkbox' %>
         <%= cb.label %>
       </div>
     <% end %>
@@ -34,3 +38,16 @@
 <% end %>
 
 <%= link_to 'Back', email_lists_path %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectAllCheckbox = document.getElementById('select_all_contacts');
+        const contactCheckboxes = document.querySelectorAll('.contact_checkbox');
+
+        selectAllCheckbox.addEventListener('change', function() {
+            contactCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+        });
+    });
+</script>
