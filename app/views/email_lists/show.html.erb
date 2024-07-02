@@ -6,13 +6,21 @@
 </p>
 
 <p>
- 
+  <strong>Send Date:</strong>
+  <%= @email_list.send_date %>
+</p>
+
+
+
+
+<p>
+
   <strong>Contacts:</strong>
-  <ul>
-    <% @email_list.contacts.each do |contact| %>
-      <li><%= contact.name %> (<%= contact.email %>)</li>
-    <% end %>
-  </ul>
+<ul>
+  <% @email_list.contacts.each do |contact| %>
+    <li><%= contact.name %> (<%= contact.email %>)</li>
+  <% end %>
+</ul>
 </p>
 
 <h2>Send Document</h2>
@@ -20,7 +28,8 @@
 <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true do |form| %>
   <div class="field">
     <%= form.label :document %>
-    <%= form.file_field :document, accept: '.pdf,.doc,.odt' %>  </div>
+    <%= form.file_field :document, accept: '.pdf,.doc,.odt' %>
+  </div>
 
   <div class="actions">
     <%= form.submit "Send Document" %>

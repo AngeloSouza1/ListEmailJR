@@ -1,17 +1,29 @@
 class DocumentMailer < ApplicationMailer
-  default from: 'testando@email.co'
+  default from: 'validemaillistjr@gmail.com'
+
+  # def send_document(contact, document)
+  #   @contact = contact
+  #   @document = document
+  #   attachments[document.original_filename] = document.read
+  #   mail(to: @contact.email, subject: 'Here is your document')
+  # end
+
 
   def send_document(contact, document)
     @contact = contact
-    @document = document
     attachments[document.original_filename] = document.read
-    mail(to: @contact.email, subject: 'Here is your document')
+    mail(to: @contact.email, subject: 'Here is the document you requested')
   end
 
 
-  def test_email(email)
-    mail(to: email, subject: 'Test Email', body: 'This is a test email.')
-  end
+
+
+
+
+
+
+
+
 
 end
 

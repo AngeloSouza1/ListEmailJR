@@ -1,12 +1,17 @@
+<!-- document_mailer/send_document.html.erb -->
 <!DOCTYPE html>
 <html>
 <head>
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-  <h2>Document Attached</h2>
-  <p>Hello <%= @contact.name %>,</p>
-  <p>Here is the document you requested:</p>
-  <%= image_tag attachments[@document.original_filename].url, alt: "Document" %>
+<p>Hello <%= @contact.name %>,</p>
+<p>Here is the document you requested:</p>
+
+<% if @document.present? %>
+  <%= image_tag attachments[@document.original_filename].url %>
+<% else %>
+  <p>No document attached.</p>
+<% end %>
 </body>
 </html>

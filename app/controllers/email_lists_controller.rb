@@ -8,10 +8,14 @@ class EmailListsController < ApplicationController
     redirect_to new_email_list_path, notice: "You don't have any email lists yet. Create one now!" if @email_lists.empty?
   end
 
-  def show; end
+  def show
+
+  end
 
   def new
-    @email_list = current_user.email_lists.build
+    @email_list = EmailList.new
+    @contacts = current_user.contacts
+
   end
 
   def edit
@@ -40,16 +44,49 @@ class EmailListsController < ApplicationController
     redirect_to email_lists_url, notice: 'Email list was successfully destroyed.'
   end
 
+  # def send_document
+  #   if params[:document].present? && params[:document].content_type.in?(%w(application/pdf application/msword application/vnd.oasis.opendocument.text))
+  #     @email_list.contacts.each do |contact|
+  #       DocumentMailer.send_document(contact, params[:document]).deliver_now
+  #     end
+  #     redirect_to @email_list, notice: 'Document was successfully sent to the email list.'
+  #   else
+  #     redirect_to @email_list, alert: 'Invalid document type.'
+  #   end
+  # end
+
   def send_document
-    if params[:document].present? && params[:document].content_type.in?(%w(application/pdf application/msword application/vnd.oasis.opendocument.text))
-      @email_list.contacts.each do |contact|
-        DocumentMailer.send_document(contact, params[:document]).deliver_now
+    if params[:document].present?
+      begin
+        # Percorre cada contato na lista de e-mails
+        @email_list.contacts.each do |contact|
+          # Cria um objeto ActionDispatch::Http::UploadedFile a partir do arquivo enviado
+          document = ActionDispatch::Http::UploadedFile.new(
+            tempfile: params[:document].tempfile,
+            filename: params[:document].original_filename,
+            content_type: params[:document].content_type
+          )
+
+          # Envie o e-mail utilizando o DocumentMailer
+          DocumentMailer.send_document(contact, document).deliver_now
+        end
+
+        redirect_to @email_list, notice: 'Document was successfully sent to the email list.'
+      rescue StandardError => e
+        redirect_to @email_list, alert: "Failed to send document: #{e.message}"
       end
-      redirect_to @email_list, notice: 'Document was successfully sent to the email list.'
     else
-      redirect_to @email_list, alert: 'Invalid document type.'
+      redirect_to email_list, alert: 'No document file was attached.'
     end
   end
+
+
+
+
+
+
+
+
 
   private
 
@@ -58,7 +95,7 @@ class EmailListsController < ApplicationController
   end
 
   def email_list_params
-    params.require(:email_list).permit(:name, :document, contact_ids: [])
+    params.require(:email_list).permit(:name, :document, :send_date, contact_ids: [])
   end
 
   def authorize_email_list_access
