@@ -1,73 +1,116 @@
-<!--<h2>Log in</h2>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
+  <style>
+      body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
+          background-color: #f8f9fa; /* Cor de fundo do corpo da página */
+          margin: 0; /* Remove margens padrão do body */
+          font-family: Arial, sans-serif; /* Fonte padrão */
+      }
 
-<%#= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-<!--  <div class="field">-->
-<!--    <%#= f.label :email %><br />-->
-    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>
-<!--  </div>-->
+      .form-group {
+          position: relative;
+          margin-bottom: 1rem;
+          text-align: center; /* Centraliza o conteúdo dentro do form-group */
+      }
 
-<!--  <div class="field">-->
-<!--    <%#= f.label :password %><br />-->
-    <%#= f.password_field :password, autocomplete: "current-password" %>
-<!--  </div>-->
+      .form-control {
+          padding: 0.75rem;
+          font-size: 1rem;
+          width: 300px;
+          background-color: #f0f0f0;
+          border: 1px solid #ced4da; /* Borda sólida cinza */
+          display: block;
+          margin: 0 auto;
+          text-align: center;
+          transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transição suave para borda e sombra */
+      }
 
-  <%# if devise_mapping.rememberable? %>
-<!--    <div class="field">-->
-      <%#= f.check_box :remember_me %>
-      <%#= f.label :remember_me %>
-<!--    </div>-->
-  <%# end %>
+      .form-control:focus {
+          outline: none;
+          border-color: #80bdff; /* Borda azul quando focado */
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Sombra azul quando focado */
+      }
 
-<!--  <div class="actions">-->
-    <%#= f.submit "Log in" %>
-<!--  </div>-->
-<%# end %>
+      .form-control::placeholder {
+          color: #6c757d; /* Cor do texto do placeholder */
+          opacity: 1; /* Garante que o placeholder seja visível */
+      }
 
-<%#= render "devise/shared/links" %>
+      .form-control:hover {
+          border-color: #b0b0b0; /* Borda mais escura ao passar o mouse */
+      }
 
+      .placeholder-label {
+          position: absolute;
+          top: 0.25rem;
+          left: 1rem;
+          pointer-events: none;
+          color: rgba(79, 83, 108, 0.97);
+      }
 
+      .styled-checkbox {
+          appearance: none; /* Remove o estilo padrão do sistema operacional */
+          -webkit-appearance: none; /* Para navegadores baseados em WebKit (como Safari) */
+          -moz-appearance: none; /* Para navegadores baseados em Mozilla (como Firefox) */
+          width: 20px; /* Define a largura do checkbox */
+          height: 20px; /* Define a altura do checkbox */
+          border: 1px solid #ced4da; /* Adiciona uma borda sólida ao checkbox */
+          border-radius: 4px; /* Adiciona bordas arredondadas */
+          transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out; /* Adiciona uma transição suave */
+          cursor: pointer; /* Muda o cursor para indicar que o checkbox é clicável */
+      }
 
+      .styled-checkbox:checked {
+          background-color: #007bff; /* Muda a cor de fundo quando o checkbox está marcado */
+          border-color: #007bff; /* Muda a cor da borda quando o checkbox está marcado */
+      }
+  </style>
+</head>
+<body>
+<main class="w-100">
+  <form class="text-center" action="<%= session_path(resource_name) %>" method="post">
+    <img src="/message.png" class="mb-4" height="200" width="200">
+    <h1 class="h3 mb-3 fw-normal">Por favor, inscreva-se</h1>
 
-
-
-<div class="container">
-  <div class="row justify-content-center align-items-center min-vh-100">
-    <div class="col-md-4 mx-auto">
-      <div class="card border-primary shadow">
-        <div class="card-body">
-          <h2 class="text-center mb-4">Log in</h2>
-
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form" }) do |f| %>
-            <div class="form-group d-flex justify-content-center mb-3">
-              <%= f.label :email, class: "visually-hidden" %>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control text-center border-0", placeholder: "Email", style: "max-width: 300px; background-color: #f0f0f0;" %>
-            </div>
-
-            <div class="form-group d-flex justify-content-center mb-3">
-              <%= f.label :password, class: "visually-hidden" %>
-              <%= f.password_field :password, autocomplete: "current-password", class: "form-control text-center border-0", placeholder: "Password", style: "max-width: 300px; background-color: #f0f0f0;" %>
-            </div>
-
-            <% if devise_mapping.rememberable? %>
-              <div class="form-check d-flex justify-content-center mb-3">
-                <%= f.check_box :remember_me, class: "form-check-input", id: "remember_me" %>
-                <%= f.label :remember_me, class: "form-check-label text-center ms-2", for: "remember_me" %>
-              </div>
-            <% end %>
-
-            <div class="text-center mb-4">
-              <%= f.submit "Log in", class: "btn btn-primary me-2" %>
-            </div>
-          <% end %>
-
-          <%= render "devise/shared/links" %>
+    <div class="form-group">
+      <%= csrf_meta_tags %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form" }) do |f| %>
+        <div class="position-relative">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Digite seu Email" %>
+          <label class="placeholder-label visually-hidden">Email</label>
         </div>
-      </div>
+        <p>
+        <div class="position-relative">
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Digite sua Senha" %>
+          <label class="placeholder-label visually-hidden">Senha</label>
+        </div>
+        <p>
+          <% if devise_mapping.rememberable? %>
+          <div class="form-check d-flex justify-content-center mb-3">
+            <%= f.check_box :remember_me, class: "form-check-input styled-checkbox", id: "remember_me" %>
+            <%= f.label :remember_me, class: "form-check-label text-center ms-2", for: "remember_me" do %>
+              Lembrar-me
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="text-center mb-4">
+          <%= f.submit "Acessar", class: "btn btn-primary me-2" %>
+        </div>
+      <% end %>
+
+      <%= render "devise/shared_devise/links" %>
+
     </div>
-  </div>
-</div>
-
-
-
-
-
+  </form>
+</main>
+</body>
+</html>
