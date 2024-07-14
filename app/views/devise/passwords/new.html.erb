@@ -1,16 +1,72 @@
-<h2>Forgot your password?</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<main class="d-flex justify-content-center align-items-center vh-100" style="background-color: #eaeafd;">
+  <div class="image-container" style="flex: 1; position: relative;">
+    <%= image_tag("senha.jpg", class: "background-image") %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
+  <div class="form-container d-flex justify-content-center align-items-center" style="flex: 4; max-width: 60%;">
+    <div class="p-5" style="background-color: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+      <h2 class="mb-4 text-center">Esqueceu sua senha?</h2>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= render "devise/shared/links" %>
+        <div class="field mb-4">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control-custom" %>
+        </div>
+
+        <div class="actions text-center">
+          <%= f.submit "Envie-me instruções de redefinição de senha", class: "btn btn-primary btn-gradient-blue" %>
+        </div>
+      <% end %>
+      <p>
+      <div class="actions text-center">
+        <%= render "devise/shared_devise/links" %>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+    .image-container {
+        width: 40%; /* Define a largura para ocupar 20% da tela */
+        height: 100vh; /* Garante que a altura seja de 100vh */
+        background-image: url('<%= asset_path("senha.jpg") %>'); /* Caminho para sua imagem */
+        background-size: cover; /* Ajusta a imagem para cobrir o espaço */
+        background-position: center; /* Centraliza a imagem vertical e horizontalmente */
+    }
+
+    .background-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .form-container {
+        padding: 70px;
+    }
+
+    .form-control-custom {
+        width: 100%; /* Define a largura para ocupar 100% do contêiner */
+        padding: 10px; /* Adiciona um padding interno */
+        border: 1px solid #ced4da; /* Define a cor e espessura da borda */
+        border-radius: 5px; /* Adiciona cantos arredondados */
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Adiciona transição suave para a mudança de borda */
+    }
+
+    .form-control-custom:focus {
+        background-color: white; /* Fundo branco ao focar */
+        color: black; /* Texto preto ao focar */
+        outline: none; /* Remove o outline ao focar */
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra ao focar */
+    }
+
+    .btn-gradient-blue {
+        background-image: linear-gradient(to right, #4e73df, #224abe); /* Gradiente azul */
+        border: none; /* Remove a borda */
+        color: white; /* Texto branco */
+    }
+
+    .btn-gradient-blue:hover {
+        background-image: linear-gradient(to right, #224abe, #4e73df); /* Gradiente azul invertido ao passar o mouse */
+    }
+</style>

@@ -1,0 +1,11 @@
+pt-BR:
+  errors:
+    messages:
+      not_found: "não encontrado."
+      already_confirmed: "já foi confirmado."
+      not_locked: "não está bloqueado."
+      not_saved:
+        one: "1 erro impediu este recurso de ser salvo:"
+        other: "%{count} erros impediram este recurso de ser salvo:"
+      confirmation_period_expired: "expirou, por favor, solicite um novo."
+      already_authenticated: "já está autenticado."

@@ -8,7 +8,7 @@
       body {
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-end; /* Move o conteúdo para a direita */
           height: 100vh;
           background-color: #f8f9fa; /* Cor de fundo do corpo da página */
           margin: 0; /* Remove margens padrão do body */
@@ -19,6 +19,8 @@
           position: relative;
           margin-bottom: 1rem;
           text-align: center; /* Centraliza o conteúdo dentro do form-group */
+          padding: 15px; /* Adiciona padding para aumentar a área de hover */
+          transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transição suave para borda e sombra */
       }
 
       .form-control {
@@ -72,13 +74,57 @@
           background-color: #007bff; /* Muda a cor de fundo quando o checkbox está marcado */
           border-color: #007bff; /* Muda a cor da borda quando o checkbox está marcado */
       }
+
+      .wide-button {
+          width: 100%; /* Largura total do elemento pai */
+          max-width: 300px; /* Largura máxima do botão */
+      }
+
+      main {
+          width: 100%;
+          max-width: 400px;
+          margin-right: 20px; /* Espaço da direita da tela */
+      }
+
+      .image-container {
+          flex: 1;
+          background-image: url('<%= asset_path("email.jpg") %>'); /* Caminho para sua imagem */
+          background-size: cover; /* Ajusta a imagem para cobrir o espaço */
+          background-position: center; /* Centraliza a imagem */
+          height: 100vh; /* Garante que a altura seja de 100vh */
+      }
+
+      /* Defina um gradiente azul para o botão */
+      .btn-gradient-blue {
+          background: linear-gradient(to right, #4facfe, #00f2fe);
+          border: none;
+          color: white;
+          padding: 10px 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+          border-radius: 4px;
+          transition: background 0.3s ease-in-out;
+      }
+
+      /* Adicione um efeito de hover */
+      .btn-gradient-blue:hover {
+          background: linear-gradient(to right, #00f2fe, #4facfe);
+      }
+
+
   </style>
 </head>
 <body>
-<main class="w-100">
-  <form class="text-center" action="<%= session_path(resource_name) %>" method="post">
-    <img src="/message.png" class="mb-4" height="200" width="200">
-    <h1 class="h3 mb-3 fw-normal">Por favor, inscreva-se</h1>
+<div class="image-container"></div>
+
+<main class="d-flex justify-content-center align-items-center vh-100" >
+  <form class="text-center" action="<%= session_path(resource_name) %>" method="post" style="max-width: 400px;">
+    <img src="<%= asset_path('message.png') %>" class="mb-4" height="200" width="200">
+    <h1 class="h3 mb-3 fw-normal">Por favor, inscreva-se!</h1>
 
     <div class="form-group">
       <%= csrf_meta_tags %>
@@ -89,7 +135,7 @@
         </div>
         <p>
         <div class="position-relative">
-          <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Digite sua Senha" %>
+          <%= f.password_field :password,  autofocus: true, autocomplete: "current-password", class: "form-control", placeholder: "Digite sua Senha" %>
           <label class="placeholder-label visually-hidden">Senha</label>
         </div>
         <p>
@@ -103,12 +149,11 @@
         <% end %>
 
         <div class="text-center mb-4">
-          <%= f.submit "Acessar", class: "btn btn-primary me-2" %>
+          <%= f.submit "Acessar", class: "btn btn-primary me-2 wide-button" %>
         </div>
       <% end %>
 
       <%= render "devise/shared_devise/links" %>
-
     </div>
   </form>
 </main>
