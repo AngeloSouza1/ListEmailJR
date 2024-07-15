@@ -1,34 +1,32 @@
-<h1>Contacts</h1>
+<main class="container">
+<h1 class="mb-4">Contatos</h1>
 
-<%= link_to 'New Contact', new_contact_path %>
+  <div class="d-flex justify-content-between mb-3">
+     <%= link_to 'Novo Contato', new_contact_path, class: "btn btn-primary" %>
+    <p class="text-right"><strong>Total de Contatos: <%= @contacts.count %></strong></p>
 
-<table>
-  <thead>
+  </div>
+
+  <table class="table table-hover table-striped table-bordered text-center">
+    <thead class="thead-dark">
     <tr>
       <th>Name</th>
       <th>Email</th>
-      <th colspan="3"></th>
+      <th colspan="3">Actions</th>
     </tr>
-  </thead>
-
-  <tbody>
-  <% @contacts.each do |contact| %>
-    <tr>
-      <td><%= contact.name %></td>
-      <td><%= contact.email %></td>
-      <td><%= link_to 'Show', contact %></td>
-      <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-<!--      <td><%#= button_to 'Destroy', contact_path(contact), method: :delete, data: { confirm: 'Are you sure?' }, class: 'link-style' %></td>-->
-    <td>
-      <form style="display:inline" action="<%= contact_path(contact) %>" onsubmit="return confirm('Confirma Exclusão?')" method="POST">
-        <input type="hidden" name="_method" value="delete" />
-        <button type="submit" class='link-style'>Apagar</button>
-      </form>
-    </td>
+    </thead>
+    <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.name %></td>
+        <td><%= contact.email %></td>
+        <td><%= link_to 'Mostrar', contact, class: "btn btn-sm btn-info" %></td>
+        <td><%= link_to 'Editar', edit_contact_path(contact), class: "btn btn-sm btn-primary" %></td>
+        <td><%= button_to 'Apagar', contact_path(contact), method: :delete, data: { confirm: 'Confirma essa exclusão?' }, class: 'btn btn-sm btn-danger' %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</main>
 
 
-    </tr>
-  <% end %>
-
-  </tbody>
-</table>

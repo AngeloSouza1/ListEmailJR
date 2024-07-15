@@ -5,8 +5,12 @@ class EmailListsController < ApplicationController
 
   def index
     @email_lists = current_user.email_lists
-    redirect_to new_email_list_path, notice: "Você ainda não tem nenhuma lista de e-mail. Crie um agora!" if @email_lists.empty?
+
+    if @email_lists.empty?
+      flash.now[:notice] = "Você ainda não tem nenhuma lista de e-mail. Crie uma agora!"
+    end
   end
+
 
   def show
 

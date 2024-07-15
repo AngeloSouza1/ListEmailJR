@@ -45,3 +45,50 @@
 .user-email {
     margin-right: 20px; /* Adjust this value as needed */
 }
+
+.badge-info {
+    font-size: 1.2em;
+    padding: 10px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table thead th {
+    background-color: #343a40;
+    color: white;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table .btn {
+    width: 100%;
+}
+
+.table .btn-info {
+    background-color: #17a2b8;
+    border: none;
+}
+
+.table .btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.table .btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.table .btn-info:hover,
+.table .btn-primary:hover,
+.table .btn-danger:hover {
+    opacity: 0.8;
+}
