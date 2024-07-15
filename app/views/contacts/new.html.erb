@@ -1,31 +1,35 @@
-<h1><%= action_name.capitalize %> Contact</h1>
+  <section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div style="max-width: 400px; width: 100%;" class="rounded p-4 shadow-sm bg-light">
+      <h1 class="text-center">Novo Contato</h1>
 
-<%= form_with(model: @contact, local: true) do |form| %>
-  <% if @contact.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+      <%= form_with(model: @contact, local: true) do |form| %>
+        <% if @contact.errors.any? %>
+          <div id="error_explanation" class="alert alert-danger">
+            <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
 
-      <ul>
-        <% @contact.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+            <ul>
+              <% @contact.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <div class="mb-3">
+          <%= form.label :name, "Nome", class: "form-label" %>
+          <%= form.text_field :name, class: "form-control form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :email, "Email", class: "form-label" %>
+          <%= form.email_field :email, class: "form-control form-control" %>
+        </div>
+
+        <div class="d-grid gap-2">
+          <%= form.submit "Salvar", class: "btn btn-primary btn-block rounded-pill" %>
+          <%= link_to 'Voltar', contacts_path, class: "btn btn-secondary btn-block rounded-pill mt-2" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  </section>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.email_field :email %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', contacts_path %>
