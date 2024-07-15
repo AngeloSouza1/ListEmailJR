@@ -12,15 +12,23 @@
   </thead>
 
   <tbody>
-    <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= contact.name %></td>
-        <td><%= contact.email %></td>
-        <td><%= link_to 'Show', contact %></td>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= button_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' }, class: 'link-style' %></td>
+  <% @contacts.each do |contact| %>
+    <tr>
+      <td><%= contact.name %></td>
+      <td><%= contact.email %></td>
+      <td><%= link_to 'Show', contact %></td>
+      <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
+<!--      <td><%#= button_to 'Destroy', contact_path(contact), method: :delete, data: { confirm: 'Are you sure?' }, class: 'link-style' %></td>-->
+    <td>
+      <form style="display:inline" action="<%= contact_path(contact) %>" onsubmit="return confirm('Confirma Exclusão?')" method="POST">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit" class='link-style'>Apagar</button>
+      </form>
+    </td>
 
-      </tr>
-    <% end %>
+
+    </tr>
+  <% end %>
+
   </tbody>
 </table>
