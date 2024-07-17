@@ -16,26 +16,28 @@
         <p class="text-right"><strong>Total de Contatos: <%= @contacts.count %></strong></p>
       </div>
 
-      <table class="table table-hover table-striped table-bordered text-center">
-        <thead class="thead-dark">
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th colspan="3">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @contacts.each do |contact| %>
+      <div style="max-height: 450px; overflow-y: auto;">
+        <table class="table table-hover table-striped table-bordered text-center">
+          <thead class="thead-dark">
           <tr>
-            <td><%= contact.name %></td>
-            <td><%= contact.email %></td>
-            <td><%= link_to 'Mostrar', contact, class: "btn btn-sm btn-info" %></td>
-            <td><%= link_to 'Editar', edit_contact_path(contact), class: "btn btn-sm btn-primary" %></td>
-            <td><%= button_to 'Apagar', contact_path(contact), method: :delete, data: { confirm: 'Confirma essa exclusão?' }, class: 'btn btn-sm btn-danger' %></td>
+            <th>Nome</th>
+            <th>Email</th>
+            <th colspan="3">Acões</th>
           </tr>
-        <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+          <% @contacts.each do |contact| %>
+            <tr>
+              <td><%= contact.name %></td>
+              <td><%= contact.email %></td>
+              <td><%= link_to 'Mostrar', contact, class: "btn btn-sm btn-info" %></td>
+              <td><%= link_to 'Editar', edit_contact_path(contact), class: "btn btn-sm btn-primary" %></td>
+              <td><%= button_to 'Apagar', contact_path(contact), method: :delete, data: { confirm: 'Confirma essa exclusão?' }, class: 'btn btn-sm btn-danger' %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </main>
