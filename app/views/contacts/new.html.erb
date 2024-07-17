@@ -1,35 +1,45 @@
-  <section class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div style="max-width: 400px; width: 100%;" class="rounded p-4 shadow-sm bg-light">
-      <h1 class="text-center">Novo Contato</h1>
+<div class="container-fluid">
+  <div class="row vh-100">
+    <div class="col-md-4 bg-dark text-white p-0">
+      <div style="max-width: 300px; width: 100%; margin-top: 10rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
+        <h2 class="text-center">Cadastro de Contatos</h2>
+        <p class="text-center"><strong>Aqui você cadastra um contato!</strong></p>
+        <p class="text-center">Cadastre o nome e o email do contato de envio.</p>
+      </div>
+    </div>
+    <div class="col-md-8 d-flex justify-content-center align-items-center" style="height: 100vh;">
+      <div style="max-width: 400px; width: 100%; border: 2px solid black;" class="rounded p-4 shadow-sm bg-light">
+        <h1 class="text-center">Novo Contato</h1>
 
-      <%= form_with(model: @contact, local: true) do |form| %>
-        <% if @contact.errors.any? %>
-          <div id="error_explanation" class="alert alert-danger">
-            <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+        <%= form_with(model: @contact, local: true) do |form| %>
+          <% if @contact.errors.any? %>
+            <div id="error_explanation" class="alert alert-danger">
+              <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
 
-            <ul>
-              <% @contact.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
+              <ul>
+                <% @contact.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= form.label :name, "Nome", class: "form-label" %>
+            <%= form.text_field :name, class: "form-control form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :email, "Email", class: "form-label" %>
+            <%= form.email_field :email, class: "form-control form-control" %>
+          </div>
+
+          <div class="d-grid gap-2">
+            <%= form.submit "Salvar", class: "btn btn-primary btn-block rounded-pill" %>
+            <%= link_to 'Voltar', contacts_path, class: "btn btn-outline-secondary mt-3 d-block w-100" %>
           </div>
         <% end %>
-
-        <div class="mb-3">
-          <%= form.label :name, "Nome", class: "form-label" %>
-          <%= form.text_field :name, class: "form-control form-control" %>
-        </div>
-
-        <div class="mb-3">
-          <%= form.label :email, "Email", class: "form-label" %>
-          <%= form.email_field :email, class: "form-control form-control" %>
-        </div>
-
-        <div class="d-grid gap-2">
-          <%= form.submit "Salvar", class: "btn btn-primary btn-block rounded-pill" %>
-          <%= link_to 'Voltar', contacts_path, class: "btn btn-outline-secondary mt-3 d-block w-100" %>
-        </div>
-      <% end %>
+      </div>
     </div>
-  </section>
-
+  </div>
+</div>
