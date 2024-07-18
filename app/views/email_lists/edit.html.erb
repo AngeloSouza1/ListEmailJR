@@ -1,13 +1,12 @@
 <h1><%= action_name.capitalize %> Email List</h1>
 
 <%= form_with(model: @email_list, local: true) do |form| %>
-  <% if @email_list.errors.any? %>
+  <% if @errors && @errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@email_list.errors.count, "error") %> prohibited this email list from being saved:</h2>
-
+      <h2><%= pluralize(@errors.count, "error") %> prohibited this email list from being saved:</h2>
       <ul>
-        <% @email_list.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        <% @errors.each do |error| %>
+          <li><%= error %></li>
         <% end %>
       </ul>
     </div>
@@ -22,7 +21,6 @@
     <%= form.label :send_date %>
     <%= form.date_field :send_date %>
   </div>
-
 
   <div class="field">
     <%= form.label :contacts %>
@@ -39,7 +37,7 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Salvar', id: 'submit_btn' %>
   </div>
 <% end %>
 
@@ -47,13 +45,24 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const selectAllCheckbox = document.getElementById('select_all_contacts');
-        const contactCheckboxes = document.querySelectorAll('.contact_checkbox');
+        const form = document.querySelector('form');
+        const checkboxes = form.querySelectorAll('.contact_checkbox');
+        const submitBtn = form.querySelector('#submit_btn');
 
-        selectAllCheckbox.addEventListener('change', function() {
-            contactCheckboxes.forEach(function(checkbox) {
-                checkbox.checked = selectAllCheckbox.checked;
-            });
+        form.addEventListener('submit', function(event) {
+            if (!hasCheckedCheckbox(checkboxes)) {
+                event.preventDefault();
+                alert('Selecione pelo menos um contato para atualizar a lista de emails.');
+            }
         });
+
+        function hasCheckedCheckbox(checkboxes) {
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    return true;
+                }
+            }
+            return false;
+        }
     });
 </script>

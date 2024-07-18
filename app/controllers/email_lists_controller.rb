@@ -23,6 +23,7 @@ class EmailListsController < ApplicationController
   end
 
   def edit
+
     @contacts = current_user.contacts
   end
 

@@ -1,34 +1,52 @@
 <%= stylesheet_link_tag 'email_lists', media: 'all' %>
 
-<h1>Email Lists</h1>
+<div class="container-fluid">
+  <div class="row vh-100">
+    <div class="col-md-4 bg-dark text-white p-0">
+      <div style="max-width: 300px; width: 100%; margin-top: 10rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
+        <h2 class="text-center">Cadastro da Lista!</h2>
+        <p class="text-center"><strong>Aqui você cadastra uma lista de emails!</strong></p>
+        <p class="text-center">Cadastre o nome e adicione os contatos na lista.</p>
+      </div>
+    </div>
+    <div class="col-md-8 d-flex justify-content-center align-items-center" style="height: 98vh;">
+<!--      <div style="max-width: 900px; width: 100%; border: 2px solid black;" class="rounded p-4 shadow-sm bg-light">-->
+          <div style="max-width: 900px; width: 100%; class="rounded p-4 shadow-sm bg-light">
 
-<%= link_to 'New Email List', new_email_list_path %>
+          <div class="d-flex justify-content-between mb-3">
+            <%= link_to 'Nova Lista de Emails', new_email_list_path, class: 'btn btn-primary' %>
+            <p class="text-right"><strong>Total de Listas: <%= @email_lists.count %></strong></p>
+          </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Contacts</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @email_lists.each do |email_list| %>
-      <tr>
-        <td><%= email_list.name %></td>
-        <td>
-       <%= "#{email_list.contacts.size}" %>
-        </td>
-        <% if email_list.contacts.nil? || email_list.contacts.empty? %>
 
-        <% else %>
-          <td><%= link_to 'Show', email_list %></td>
-        <% end %>
-<!--        <td><%#= link_to 'Show', email_list %></td>-->
-        <td><%= link_to 'Edit', edit_email_list_path(email_list) %></td>
-        <td><%= button_to 'Destroy', email_list, method: :delete, data: { confirm: 'Are you sure?' }, class: 'link-style' %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <div class="table-responsive" style="height: 400px; overflow-y: scroll;">
+          <table class="table table-hover table-striped table-bordered text-center">
+            <thead class="thead-dark">
+            <tr>
+              <th>Nome</th>
+              <th>Contatos</th>
+              <th colspan="4">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @email_lists.each do |email_list| %>
+              <tr>
+                <td><%= email_list.name %></td>
+                <td><%= email_list.contacts.size %></td>
+                <% if email_list.contacts.present? %>
+                  <td><%= link_to 'Mostrar', email_list, class: 'btn btn-sm btn-info' %></td>
+                <% else %>
+                  <td></td>
+                <% end %>
+                <td><%= link_to 'Editar', edit_email_list_path(email_list), class: 'btn btn-sm btn-primary' %></td>
+                <td><%= button_to 'Apagar', email_list, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
