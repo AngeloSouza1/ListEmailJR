@@ -196,3 +196,11 @@ th, td {
 .pagination {
     margin-top: 20px;
 }
+.scroll-lock {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.bg-light {
+    background-color: #f8f9fa;
+}
