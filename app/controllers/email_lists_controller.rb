@@ -19,12 +19,12 @@ class EmailListsController < ApplicationController
   def new
     @email_list = EmailList.new
     @contacts = current_user.contacts
-
+    # @contacts = current_user.contacts.page(params[:page]).per(10)
   end
 
   def edit
-
     @contacts = current_user.contacts
+    # @contacts = current_user.contacts.page(params[:page]).per(10)
   end
 
   def create

@@ -193,3 +193,6 @@ th, td {
     background-color: #c82333;
     border-color: #bd2130;
 }
+.pagination {
+    margin-top: 20px;
+}
