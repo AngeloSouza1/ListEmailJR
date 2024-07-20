@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
 
   def index
     if current_user
-      @contacts = current_user.contacts
+      @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc)
 
       if @contacts.empty?
         redirect_to new_contact_path, notice: 'You don\'t have any contacts yet. Create one now!'

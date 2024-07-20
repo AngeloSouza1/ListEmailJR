@@ -4,7 +4,7 @@ class EmailListsController < ApplicationController
   before_action :authorize_email_list_access, only: [:show, :edit, :update, :destroy]
 
   def index
-    @email_lists = current_user.email_lists
+    @email_lists = current_user.email_lists.order(updated_at: :desc, created_at: :desc)
 
     if @email_lists.empty?
       flash.now[:notice] = "Você ainda não tem nenhuma lista de e-mail. Crie uma agora!"
@@ -19,12 +19,13 @@ class EmailListsController < ApplicationController
   def new
     @email_list = EmailList.new
     @contacts = current_user.contacts
-    # @contacts = current_user.contacts.page(params[:page]).per(10)
+
   end
 
   def edit
-    @contacts = current_user.contacts
-    # @contacts = current_user.contacts.page(params[:page]).per(10)
+    @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc) # Ordena contatos por atualizado e criado
+
+
   end
 
   def create

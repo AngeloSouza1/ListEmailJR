@@ -82,7 +82,6 @@
         const selectAllCheckbox = document.getElementById("select-all");
         const selectedCountSpan = document.getElementById("selected-count");
         const emailListName = document.getElementById("email_list_name");
-        const contactsTable = document.getElementById("contacts-table");
 
         function updateSelectedCount() {
             const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
@@ -97,33 +96,10 @@
             updateSelectedCount();
         }
 
-        function saveCheckboxState() {
-            const selections = {};
-            checkboxes.forEach(checkbox => {
-                selections[checkbox.dataset.contactId] = checkbox.checked;
-            });
-            localStorage.setItem('checkboxSelections', JSON.stringify(selections));
-        }
-
-        function loadCheckboxState() {
-            const savedSelections = JSON.parse(localStorage.getItem('checkboxSelections') || '{}');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = savedSelections[checkbox.dataset.contactId] === true;
-            });
-            updateSelectedCount();
-        }
-
-        function refreshPageIfNamePresent() {
-            if (emailListName.value) {
-                window.location.reload();
-            }
-        }
-
         // Event Listeners
         if (selectAllCheckbox) {
             selectAllCheckbox.addEventListener("change", function() {
                 handleSelectAll();
-                saveCheckboxState();
             });
         }
 
@@ -131,15 +107,14 @@
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener("change", function() {
                     updateSelectedCount();
-                    saveCheckboxState();
                 });
             });
         }
 
-        // Load the state when the page is loaded
-        loadCheckboxState();
-
-        // Refresh the page if the name field is present
-        refreshPageIfNamePresent();
+        // Ensure all checkboxes are unchecked when the page loads
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        updateSelectedCount();
     });
 </script>

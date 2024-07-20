@@ -1,68 +1,132 @@
-<h1><%= action_name.capitalize %> Email List</h1>
+<main class="container-fluid">
+  <div class="row vh-100">
 
-<%= form_with(model: @email_list, local: true) do |form| %>
-  <% if @errors && @errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@errors.count, "error") %> prohibited this email list from being saved:</h2>
-      <ul>
-        <% @errors.each do |error| %>
-          <li><%= error %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-<!--  <div class="field">-->
-    <%#= form.label :send_date %>
-    <%#= form.date_field :send_date %>
-<!--  </div>-->
-
-  <div class="field">
-    <%= form.label :contacts %>
-    <div>
-      <input type="checkbox" id="select_all_contacts" />
-      <label for="select_all_contacts">Selecionar Todos</label>
-    </div>
-    <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
-      <div>
-        <%= cb.check_box class: 'contact_checkbox' %>
-        <%= cb.label %>
+    <!-- Div da esquerda -->
+    <div class="col-md-4 bg-dark text-white p-0">
+      <div style="max-width: 300px; width: 100%; margin-top: 10rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
+        <h2 class="text-center">Edição de Listas de Emails</h2>
+        <p class="text-center"><strong>Aqui você edita uma lista de emails!</strong></p>
+        <p class="text-center">Edite o nome ou contatos para a lista de envio.</p>
       </div>
-    <% end %>
-  </div>
+    </div>
 
-  <div class="actions">
-    <%= form.submit 'Salvar', id: 'submit_btn' %>
-  </div>
-<% end %>
+    <!-- Div da direita fixa na tela e ocupa o espaço restante -->
+    <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 100%; margin-top: 0rem;">
+      <div style="max-width: 850px; width: 100%; border: 1px solid black; padding: 1rem; margin-top: 5rem;" class="rounded p-4 shadow-sm bg-light">
+        <h1 class="text-center">Editar Lista</h1>
 
-<%= link_to 'Back', email_lists_path %>
+        <%= form_with(model: @email_list, local: true) do |form| %>
+          <% if @errors && @errors.any? %>
+            <div id="error_explanation" class="alert alert-danger">
+              <h2 class="alert-heading"><%= pluralize(@errors.count, "error") %> prohibited this email list from being saved:</h2>
+              <ul class="mb-0">
+                <% @errors.each do |error| %>
+                  <li><%= error %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="mb-3">
+            <%= form.label :name, "Nome", class: "form-label" %>
+            <%= form.text_field :name, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <div class="d-flex align-items-center">
+              <%= form.label :contacts, "Contatos", class: "form-label me-auto" %>
+              <span id="selected-count" class="ms-3">Contatos Selecionados: <%= @email_list.contact_ids.count %></span>
+            </div>
+            <% if @contacts.present? %>
+              <div class="contacts-container">
+                <table class="table table-bordered table-striped" id="contacts-table">
+                  <thead class="thead-dark sticky-header">
+                  <tr>
+                    <th scope="col"><input type="checkbox" id="select-all" class="form-check-input"></th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Criado</th>
+                    <th scope="col">Atualizado</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
+                    <tr>
+                      <td class="text-center">
+                        <%= cb.check_box class: "form-check-input contact-checkbox", checked: @email_list.contact_ids.include?(cb.object.id), data: { contactId: cb.object.id } %>
+                      </td>
+                      <td><%= cb.label class: "form-check-label" %></td>
+                      <td><small class="text-muted"><%= cb.object.email %></small></td>
+                      <td><small class="text-muted"><%= cb.object.created_at.strftime("%d/%m/%Y %H:%M") %></small></td>
+                      <td><small class="text-muted"><%= cb.object.updated_at.strftime("%d/%m/%Y %H:%M") %></small></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% else %>
+              <p class="text-center">Nenhum contato disponível.</p>
+            <% end %>
+          </div>
+
+          <div class="d-flex justify-content-between mb-3">
+            <%= form.submit 'Salvar', class: 'btn btn-primary' %>
+            <%= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+    .table-responsive {
+        max-height: 400px; /* Ajuste conforme necessário */
+        overflow-y: auto;
+    }
+
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        background-color: #343a40;
+        color: #fff;
+        z-index: 1;
+    }
+</style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form');
-        const checkboxes = form.querySelectorAll('.contact_checkbox');
-        const submitBtn = form.querySelector('#submit_btn');
+    document.addEventListener("turbo:load", function() {
+        const checkboxes = document.querySelectorAll(".contact-checkbox");
+        const selectAllCheckbox = document.getElementById("select-all");
+        const selectedCountSpan = document.getElementById("selected-count");
 
-        form.addEventListener('submit', function(event) {
-            if (!hasCheckedCheckbox(checkboxes)) {
-                event.preventDefault();
-                alert('Selecione pelo menos um contato para atualizar a lista de emails.');
-            }
-        });
-
-        function hasCheckedCheckbox(checkboxes) {
-            for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    return true;
-                }
-            }
-            return false;
+        function updateSelectedCount() {
+            const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
+            selectedCountSpan.textContent = `Contatos Selecionados: ${selectedCount}`;
         }
+
+        function handleSelectAll() {
+            const isChecked = selectAllCheckbox.checked;
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+            updateSelectedCount();
+        }
+
+        if (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener("change", function() {
+                handleSelectAll();
+            });
+        }
+
+        if (checkboxes.length > 0) {
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function() {
+                    updateSelectedCount();
+                });
+            });
+        }
+
+        updateSelectedCount();
     });
 </script>
