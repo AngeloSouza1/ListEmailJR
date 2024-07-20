@@ -204,3 +204,75 @@ th, td {
 .bg-light {
     background-color: #f8f9fa;
 }
+
+
+ .contacts-container {
+     max-height: 220px;
+     overflow-y: auto;
+     border: 1px solid #ced4da;
+     border-radius: 5px;
+     display: flex;
+     flex-direction: column;
+ }
+
+.contacts-header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #ced4da;
+    font-weight: bold;
+    position: sticky; /* Fix the header to the top of the scrollable area */
+    top: 0;
+    z-index: 1; /* Ensure the header stays on top of the scrollable items */
+    display: flex;
+}
+
+.header-item {
+    padding: 5px;
+    text-align: left;
+}
+
+.header-item.me-3 {
+    margin-right: 15px; /* Adjust spacing between header items */
+}
+
+.contacts-list {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-item {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ced4da;
+    padding: 10px;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+}
+
+.contact-item:nth-child(even) {
+    background-color: #e9ecef;
+}
+
+.contact-item .form-check {
+    margin-right: 15px; /* Space between checkbox and name */
+}
+
+.contact-item .form-check-label {
+    font-weight: bold;
+}
+
+.contact-item .flex-grow-1 {
+    margin-right: 15px; /* Space between name and email */
+}
+
+.contact-item .me-3 {
+    margin-right: 15px; /* Space between email and date */
+}
+
+
+
+
+
+

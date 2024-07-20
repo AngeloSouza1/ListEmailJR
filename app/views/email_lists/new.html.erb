@@ -36,9 +36,11 @@
             <% if @contacts.present? %>
               <div class="contacts-container">
                 <div class="contacts-header d-flex align-items-center">
-                  <div class="header-item me-5">..</div>
-                  <div class="header-item flex-grow-1">Nome</div>
-                  <div class="header-item">Email</div>
+                  <div class="header-item check-header me-5">...</div>
+                  <div class="header-item name-header flex-grow-1 me-5">Nome</div>
+                  <div class="header-item name-header flex-grow-1 me-5"> Email</div>
+                  <div class="header-item name-header flex-grow-1 me-5">Criado</div>
+                  <div class=" flex-grow-1 me-3">Atualizado</div>
                 </div>
                 <div class="contacts-list">
                   <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
@@ -49,9 +51,19 @@
                       <div class="flex-grow-1">
                         <%= cb.label class: "form-check-label" %>
                       </div>
-                      <div>
+                      <div class="flex-grow-1 me">
                         <small class="text-muted"><%= cb.object.email %></small>
                       </div>
+                      <div class="flex-grow-1 me">
+                        <small class="text-muted"><%= cb.object.created_at.strftime("%d/%m/%Y %H:%M") %></small>
+                      </div>
+                      <div class="flex-grow-1 me">
+                        <small class="text-muted"><%= cb.object.updated_at.strftime("%d/%m/%Y %H:%M") %></small>
+                      </div>
+
+
+
+
                     </div>
                   <% end %>
                 </div>
