@@ -32,7 +32,7 @@
               <td><%= contact.email %></td>
               <td><%= link_to 'Mostrar', contact, class: "btn btn-sm btn-info" %></td>
               <td><%= link_to 'Editar', edit_contact_path(contact), class: "btn btn-sm btn-primary" %></td>
-              <td><%= button_to 'Apagar', contact_path(contact), method: :delete,  data: { turbo_confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %></td>
+              <td><%= button_to 'Apagar', contact_path(contact), method: :delete,  data: { turbo_confirm: 'Você deseja realmente excluir este contato?' }, class: 'btn btn-sm btn-danger' %></td>
             </tr>
           <% end %>
           </tbody>

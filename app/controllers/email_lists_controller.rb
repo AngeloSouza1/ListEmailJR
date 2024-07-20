@@ -39,9 +39,9 @@ class EmailListsController < ApplicationController
 
   def update
     if @email_list.update(email_list_params)
-      redirect_to email_lists_path, notice: 'A lista de e-mail foi atualizada com sucesso.'
+      redirect_to @email_list, notice: 'A lista de e-mail foi atualizada com sucesso.'
     else
-      render :edit
+      render :show
     end
   end
 
@@ -84,7 +84,7 @@ class EmailListsController < ApplicationController
   end
 
   def email_list_params
-    params.require(:email_list).permit(:name, :document, :send_date, contact_ids: [])
+    params.require(:email_list).permit(:name, :document, :send_date, :text_email, contact_ids: [])
   end
 
   def authorize_email_list_access

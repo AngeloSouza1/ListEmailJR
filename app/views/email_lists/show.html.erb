@@ -2,24 +2,31 @@
 
 <main class="container-fluid">
   <div class="row vh-100">
+
     <!-- Div da esquerda -->
     <div class="col-md-4 bg-dark text-white p-0">
       <div style="max-width: 300px; width: 100%; margin-top: 10rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
         <h2 class="text-center">Detalhes da Lista de Emails</h2>
         <p class="text-center"><strong>Aqui estão os detalhes da lista de emails selecionada!</strong></p>
         <p class="text-center">Visualize as informações e envie documentos conforme necessário.</p>
+
+        <!-- Botão para editar o campo text_email -->
+        <div class="text-center mt-4">
+          <button id="edit-text-email-btn" class="btn btn-warning">Editar Texto do Email</button>
+        </div>
       </div>
     </div>
 
     <!-- Div da direita fixa na tela e ocupa o espaço restante -->
     <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 100%;">
-      <div class="details-box rounded p-4 shadow-sm bg-light">
-
+      <div class="details-box rounded p-4 shadow-sm bg-light" id="details-box">
         <h1 class="text-center mb-4">Detalhes da Lista</h1>
 
-        <div class="mb-3">
-          <p><strong>Nome:</strong> <%= @email_list.name %></p>
-          <p><strong>Data de Envio:</strong> <%= @email_list.send_date.present? ? @email_list.send_date.strftime("%d/%m/%Y %H:%M") : DateTime.current.strftime("%d/%m/%Y %H:%M") %></p>
+        <div class="mb-3 d-flex justify-content-between">
+          <div>
+            <p><strong>Nome:</strong> <%= @email_list.name %></p>
+            <p><strong>Data de Envio:</strong> <%= @email_list.send_date.present? ? @email_list.send_date.strftime("%d/%m/%Y %H:%M") : DateTime.current.strftime("%d/%m/%Y %H:%M") %></p>
+          </div>
         </div>
 
         <div class="contacts-container">
@@ -44,21 +51,50 @@
             <p class="text-center">Nenhum contato disponível.</p>
           <% end %>
         </div>
-        <p>
-        <h5> Enviar Documento</h5>
+
+        <h4 class="mb-3">Enviar Documento</h4>
         <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true do |form| %>
-          <div class="form-container">
-            <%= form.label :document, "Selecione seu documento para anexar", class: "form-label" %>
-            <%= form.file_field :document, accept: '.pdf,.doc,.odt', class: "form-control" %>
-            <%= form.submit "Enviar Documento", class: "btn btn-warning mt-2" %>
+          <div class="d-flex mb-3">
+            <div class="me-2 flex-grow-1">
+              <%= form.label :document, "Selecione seu documento para anexar", class: "form-label" %>
+              <%= form.file_field :document, accept: '.pdf,.doc,.odt', class: "form-control" %>
+            </div>
+            <%= form.submit "Enviar Documento", class: "btn btn-warning align-self-end" %>
           </div>
         <% end %>
 
-        <div class="mt-3">
+        <div class="mt-4">
           <%= link_to 'Editar', edit_email_list_path(@email_list), class: 'btn btn-primary me-2' %>
           <%= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
         </div>
       </div>
+
+      <!-- Div para edição de text_email -->
+      <div class="details-box rounded p-4 shadow-sm bg-light d-none" id="text-email-box">
+        <h1 class="text-center mb-4">Editar Texto do Email</h1>
+        <%= form_with model: @email_list, url: email_list_path(@email_list), local: true, method: :patch do |form| %>
+          <div class="mb-3">
+            <%= form.label :text_email, "Texto do Email", class: "form-label" %>
+            <%= form.text_area :text_email, rows: 10, class: "form-control" %>
+          </div>
+          <div class="text-center">
+            <%= form.submit "Salvar", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editTextEmailBtn = document.getElementById('edit-text-email-btn');
+        const detailsBox = document.getElementById('details-box');
+        const textEmailBox = document.getElementById('text-email-box');
+
+        editTextEmailBtn.addEventListener('click', function() {
+            detailsBox.classList.add('d-none');
+            textEmailBox.classList.remove('d-none');
+        });
+    });
+</script>
