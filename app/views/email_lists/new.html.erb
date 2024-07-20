@@ -32,41 +32,34 @@
           </div>
 
           <div class="mb-3">
-            <%= form.label :contacts, "Contatos", class: "form-label" %>
+            <div class="d-flex align-items-center">
+              <%= form.label :contacts, "Contatos", class: "form-label me-auto" %>
+              <span id="selected-count" class="ms-3">Contatos Selecionados: 0</span>
+            </div>
             <% if @contacts.present? %>
               <div class="contacts-container">
-                <div class="contacts-header d-flex align-items-center">
-                  <div class="header-item check-header me-5">...</div>
-                  <div class="header-item name-header flex-grow-1 me-5">Nome</div>
-                  <div class="header-item name-header flex-grow-1 me-5"> Email</div>
-                  <div class="header-item name-header flex-grow-1 me-5">Criado</div>
-                  <div class=" flex-grow-1 me-3">Atualizado</div>
-                </div>
-                <div class="contacts-list">
+                <table class="table table-bordered">
+                  <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Selecionar</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Criado</th>
+                    <th scope="col">Atualizado</th>
+                  </tr>
+                  </thead>
+                  <tbody>
                   <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
-                    <div class="contact-item d-flex align-items-center mb-2">
-                      <div class="form-check me-5">
-                        <%= cb.check_box class: "form-check-input" %>
-                      </div>
-                      <div class="flex-grow-1">
-                        <%= cb.label class: "form-check-label" %>
-                      </div>
-                      <div class="flex-grow-1 me">
-                        <small class="text-muted"><%= cb.object.email %></small>
-                      </div>
-                      <div class="flex-grow-1 me">
-                        <small class="text-muted"><%= cb.object.created_at.strftime("%d/%m/%Y %H:%M") %></small>
-                      </div>
-                      <div class="flex-grow-1 me">
-                        <small class="text-muted"><%= cb.object.updated_at.strftime("%d/%m/%Y %H:%M") %></small>
-                      </div>
-
-
-
-
-                    </div>
+                    <tr>
+                      <td class="text-center"><%= cb.check_box class: "form-check-input" %></td>
+                      <td><%= cb.label class: "form-check-label" %></td>
+                      <td><small class="text-muted"><%= cb.object.email %></small></td>
+                      <td><small class="text-muted"><%= cb.object.created_at.strftime("%d/%m/%Y %H:%M") %></small></td>
+                      <td><small class="text-muted"><%= cb.object.updated_at.strftime("%d/%m/%Y %H:%M") %></small></td>
+                    </tr>
                   <% end %>
-                </div>
+                  </tbody>
+                </table>
               </div>
             <% else %>
               <p>No contacts available.</p>
@@ -89,57 +82,58 @@
         overflow-y: auto;
         border: 1px solid #ced4da;
         border-radius: 5px;
-        display: flex;
-        flex-direction: column;
     }
 
-    .contacts-header {
+    .contacts-container table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .contacts-container thead {
+        position: sticky;
+        top: 0;
+        z-index: 1;
         background-color: #343a40;
         color: #fff;
-        padding: 10px;
-        border-bottom: 1px solid #ced4da;
-        font-weight: bold;
-        position: sticky; /* Fix the header to the top of the scrollable area */
-        top: 0;
-        z-index: 1; /* Ensure the header stays on top of the scrollable items */
     }
 
-    .header-item {
-        padding: 5px;
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #ced4da;
     }
 
-    .contacts-list {
-        flex-grow: 1;
+    .text-center {
+        text-align: center;
     }
 
-    .contact-item {
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #ced4da;
-        padding: 10px;
-        border-radius: 0;
+    .form-check-input {
+        margin: 0 auto;
     }
 
-    .contact-item:nth-child(even) {
-        background-color: #e9ecef;
+    .form-check-label {
+        margin: 0;
     }
 
-    .contact-item .form-check {
-        margin-right: 20px; /* Increased space between checkbox and name */
-    }
-
-    .contact-item .form-check-label {
-        font-weight: bold;
-    }
-
-    .contact-item small {
+    .text-muted {
         color: #6c757d;
     }
-
-    .header-item.me-5 {
-        margin-right: 20px; /* Increased space in header between checkbox and name */
-    }
-
-    .header-item.flex-grow-1 {
-        flex-grow: 1; /* Make sure the name column takes the remaining space */
-    }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll(".form-check-input");
+        const selectedCountSpan = document.getElementById("selected-count");
+
+        function updateSelectedCount() {
+            const selectedCount = document.querySelectorAll(".form-check-input:checked").length;
+            selectedCountSpan.textContent = `Contatos Selecionados: ${selectedCount}`;
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", updateSelectedCount);
+        });
+
+        // Initial count update
+        updateSelectedCount();
+    });
+</script>
