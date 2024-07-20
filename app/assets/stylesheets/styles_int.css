@@ -271,7 +271,12 @@ th, td {
     margin-right: 15px; /* Space between email and date */
 }
 
-
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f2f2f2; /* Cor de fundo para linhas ímpares */
+}
+.table-striped tbody tr:nth-child(even) {
+    background-color: #ffffff; /* Cor de fundo para linhas pares */
+}
 
 
 

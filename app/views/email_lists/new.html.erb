@@ -28,7 +28,7 @@
 
           <div class="mb-3">
             <%= form.label :name, "Nome", class: "form-label" %>
-            <%= form.text_field :name, class: "form-control" %>
+            <%= form.text_field :name, class: "form-control", id: "email_list_name" %>
           </div>
 
           <div class="mb-3">
@@ -38,7 +38,7 @@
             </div>
             <% if @contacts.present? %>
               <div class="contacts-container">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-striped" id="contacts-table">
                   <thead class="thead-dark">
                   <tr>
                     <th scope="col"><input type="checkbox" id="select-all" class="form-check-input"></th>
@@ -51,7 +51,7 @@
                   <tbody>
                   <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
                     <tr>
-                      <td class="text-center"><%= cb.check_box class: "form-check-input contact-checkbox" %></td>
+                      <td class="text-center"><%= cb.check_box class: "form-check-input contact-checkbox", data: { contactId: cb.object.id } %></td>
                       <td><%= cb.label class: "form-check-label" %></td>
                       <td><small class="text-muted"><%= cb.object.email %></small></td>
                       <td><small class="text-muted"><%= cb.object.created_at.strftime("%d/%m/%Y %H:%M") %></small></td>
@@ -76,54 +76,13 @@
   </div>
 </main>
 
-<style>
-    .contacts-container {
-        max-height: 220px;
-        overflow-y: auto;
-        border: 1px solid #ced4da;
-        border-radius: 5px;
-    }
-
-    .contacts-container table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .contacts-container thead {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-        background-color: #343a40;
-        color: #fff;
-    }
-
-    .table-bordered th,
-    .table-bordered td {
-        border: 1px solid #ced4da;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .form-check-input {
-        margin: 0 auto;
-    }
-
-    .form-check-label {
-        margin: 0;
-    }
-
-    .text-muted {
-        color: #6c757d;
-    }
-</style>
-
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("turbo:load", function() {
         const checkboxes = document.querySelectorAll(".contact-checkbox");
         const selectAllCheckbox = document.getElementById("select-all");
         const selectedCountSpan = document.getElementById("selected-count");
+        const emailListName = document.getElementById("email_list_name");
+        const contactsTable = document.getElementById("contacts-table");
 
         function updateSelectedCount() {
             const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
@@ -131,19 +90,56 @@
         }
 
         function handleSelectAll() {
+            const isChecked = selectAllCheckbox.checked;
             checkboxes.forEach(checkbox => {
-                checkbox.checked = selectAllCheckbox.checked;
+                checkbox.checked = isChecked;
             });
             updateSelectedCount();
         }
 
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener("change", updateSelectedCount);
-        });
+        function saveCheckboxState() {
+            const selections = {};
+            checkboxes.forEach(checkbox => {
+                selections[checkbox.dataset.contactId] = checkbox.checked;
+            });
+            localStorage.setItem('checkboxSelections', JSON.stringify(selections));
+        }
 
-        selectAllCheckbox.addEventListener("change", handleSelectAll);
+        function loadCheckboxState() {
+            const savedSelections = JSON.parse(localStorage.getItem('checkboxSelections') || '{}');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = savedSelections[checkbox.dataset.contactId] === true;
+            });
+            updateSelectedCount();
+        }
 
-        // Initial count update
-        updateSelectedCount();
+        function refreshPageIfNamePresent() {
+            if (emailListName.value) {
+                window.location.reload();
+            }
+        }
+
+        // Event Listeners
+        if (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener("change", function() {
+                handleSelectAll();
+                saveCheckboxState();
+            });
+        }
+
+        if (checkboxes.length > 0) {
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function() {
+                    updateSelectedCount();
+                    saveCheckboxState();
+                });
+            });
+        }
+
+        // Load the state when the page is loaded
+        loadCheckboxState();
+
+        // Refresh the page if the name field is present
+        refreshPageIfNamePresent();
     });
 </script>
