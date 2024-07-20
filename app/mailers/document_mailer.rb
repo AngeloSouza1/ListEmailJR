@@ -3,7 +3,7 @@ class DocumentMailer < ApplicationMailer
   def send_document(contact, document)
     @contact = contact
     attachments[document.original_filename] = document.read
-    mail(to: @contact.email, subject: 'Aqui está o documento que você solicitou')
+    mail(to: @contact.email, subject: 'Meu currículo para sua apreciação')
   end
 
 end

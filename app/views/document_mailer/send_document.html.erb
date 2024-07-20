@@ -5,13 +5,19 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-<p>Hello <%= @contact.name %>,</p>
-<p>Here is the document you requested:</p>
+<body>
+<p>Olá, <strong><%= @contact.name %></strong>,</p>
 
-<% if @document.present? %>
-  <%= image_tag attachments[@document.original_filename].url %>
-<% else %>
-  <p>No document attached.</p>
-<% end %>
+<p>Estou me candidatando à vaga de <strong>[Nome da Vaga]</strong> na <strong>[Nome da Empresa]</strong>. Em anexo, segue meu currículo para sua análise.</p>
+
+<p>Agradeço pela atenção e fico à disposição para uma conversa.</p>
+
+<p>Atenciosamente,<br>
+  <strong>[Seu Nome]</strong><br>
+  <strong>[Seu Telefone]</strong><br>
+  <strong>[Seu E-mail]</strong></p>
+
+
+
 </body>
 </html>

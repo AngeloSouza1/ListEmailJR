@@ -1,9 +1,124 @@
 .link-style {
     background: none;
     border: none;
-  
     text-decoration: underline;
     cursor: pointer;
     padding: 0;
     font-size: inherit;
-  }
+}
+
+/* Estilos gerais para a visualização de detalhes da lista de e-mails */
+.info-box {
+    max-width: 300px;
+    margin-top: 5rem;
+    border: 2px solid yellow;
+}
+
+.details-box {
+    max-width: 1000px; /* Aumenta a largura da caixa de detalhes */
+    width: 100%;
+    border: 1px solid black;
+    padding: 1rem;
+    background-color: #f8f9fa;
+}
+
+h1, h2 {
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.contacts-container {
+    position: relative;
+    max-height: 400px; /* Ajuste conforme necessário */
+    overflow-y: auto; /* Adiciona rolagem vertical quando necessário */
+}
+
+.table {
+    width: 100%; /* Aumenta a largura da tabela para ocupar o máximo possível */
+    margin-bottom: 1rem;
+    border-collapse: collapse; /* Remove espaçamento entre células */
+}
+
+.table th, .table td {
+    text-align: center;
+    padding: 0.75rem; /* Ajuste o padding para melhor legibilidade */
+}
+
+.table thead {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.sticky-header th {
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Garante que o cabeçalho fique acima do conteúdo */
+    background-color: #343a40; /* Garante que o fundo do cabeçalho esteja definido */
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary.me-2 {
+    margin-right: 0.5rem;
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    border-radius: 0.25rem;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.space-between {
+    margin-bottom: 2rem;
+}
+
+.d-flex.align-items-center {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.form-container .btn-warning {
+    margin-top: 0.5rem;
+}
