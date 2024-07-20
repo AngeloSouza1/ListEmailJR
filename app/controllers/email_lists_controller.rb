@@ -39,7 +39,7 @@ class EmailListsController < ApplicationController
 
   def update
     if @email_list.update(email_list_params)
-      redirect_to @email_list, notice: 'A lista de e-mail foi atualizada com sucesso.'
+      redirect_to email_lists_path, notice: 'A lista de e-mail foi atualizada com sucesso.'
     else
       render :edit
     end

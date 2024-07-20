@@ -40,7 +40,7 @@
                   <td></td>
                 <% end %>
                 <td><%= link_to 'Editar', edit_email_list_path(email_list), class: 'btn btn-sm btn-primary' %></td>
-                <td><%= button_to 'Apagar', email_list, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %></td>
+                <td><%= button_to 'Apagar', email_list, method: :delete, data: { turbo_confirm: 'Você tem certeza?' }, class: 'btn btn-sm btn-danger' %></td>
               </tr>
             <% end %>
             </tbody>
