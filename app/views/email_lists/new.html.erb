@@ -41,7 +41,7 @@
                 <table class="table table-bordered">
                   <thead class="thead-dark">
                   <tr>
-                    <th scope="col">Selecionar</th>
+                    <th scope="col"><input type="checkbox" id="select-all" class="form-check-input"></th>
                     <th scope="col">Nome</th>
                     <th scope="col">Email</th>
                     <th scope="col">Criado</th>
@@ -51,7 +51,7 @@
                   <tbody>
                   <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
                     <tr>
-                      <td class="text-center"><%= cb.check_box class: "form-check-input" %></td>
+                      <td class="text-center"><%= cb.check_box class: "form-check-input contact-checkbox" %></td>
                       <td><%= cb.label class: "form-check-label" %></td>
                       <td><small class="text-muted"><%= cb.object.email %></small></td>
                       <td><small class="text-muted"><%= cb.object.created_at.strftime("%d/%m/%Y %H:%M") %></small></td>
@@ -121,17 +121,27 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const checkboxes = document.querySelectorAll(".form-check-input");
+        const checkboxes = document.querySelectorAll(".contact-checkbox");
+        const selectAllCheckbox = document.getElementById("select-all");
         const selectedCountSpan = document.getElementById("selected-count");
 
         function updateSelectedCount() {
-            const selectedCount = document.querySelectorAll(".form-check-input:checked").length;
+            const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
             selectedCountSpan.textContent = `Contatos Selecionados: ${selectedCount}`;
+        }
+
+        function handleSelectAll() {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            updateSelectedCount();
         }
 
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener("change", updateSelectedCount);
         });
+
+        selectAllCheckbox.addEventListener("change", handleSelectAll);
 
         // Initial count update
         updateSelectedCount();
