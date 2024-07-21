@@ -72,7 +72,13 @@
         <%= form_with model: @email_list, url: @email_list.persisted? ? email_list_path(@email_list) : email_lists_path, local: true, method: @email_list.persisted? ? :patch : :post do |form| %>
           <div class="mb-3">
             <%= form.label :text_email, "Digite aqui seu texto personalizado!", class: "form-label" %>
-            <%= form.text_area :text_email, value: "\nEstou me candidatando à vaga de [Nome da Vaga] na [Nome da Empresa]. Em anexo, segue meu currículo para sua análise.\nAgradeço pela atenção e fico à disposição para uma conversa.\nAtenciosamente,\n[Seu Nome]\n[Seu Telefone]\n[Seu E-mail]", rows: 10, class: "form-control text-email-field" %>
+            <%= form.text_area :text_email,
+                               value: "Estou me candidatando à vaga de [Nome da Vaga] na [Nome da Empresa].\n\nEm anexo, segue meu currículo para sua análise.\n\nAgradeço pela atenção e fico à disposição para uma conversa.\n\nAtenciosamente,\n[Seu Nome]\n[Seu Telefone]\n[Seu E-mail]",
+                               rows: 10,
+                               class: "form-control text-email-field"
+            %>
+
+
           </div>
           <div class="text-center">
             <%= form.submit "Salvar", class: "btn btn-primary" %>

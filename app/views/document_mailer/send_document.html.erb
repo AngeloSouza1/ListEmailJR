@@ -3,13 +3,26 @@
 <html>
 <head>
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+      /* Adicione estilos para uma melhor apresentação do e-mail */
+      body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+          color: #333;
+      }
+      p {
+          margin-bottom: 1em;
+      }
+      strong {
+          font-weight: bold;
+      }
+  </style>
 </head>
 <body>
 <p>Olá, <strong><%= @contact.name %></strong>,</p>
 
-<%= @text_email.html_safe %>
+<p><%= simple_format(@text_email) %></p>
 
-<p>Atenciosamente,<br>
 
 </body>
 </html>
