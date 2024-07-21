@@ -1,23 +1,15 @@
-<!-- document_mailer/send_document.html.erb -->
+<!-- app/views/document_mailer/send_document.html.erb -->
 <!DOCTYPE html>
 <html>
 <head>
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-<body>
 <p>Olá, <strong><%= @contact.name %></strong>,</p>
 
-<p>Estou me candidatando à vaga de <strong>[Nome da Vaga]</strong> na <strong>[Nome da Empresa]</strong>. Em anexo, segue meu currículo para sua análise.</p>
-
-<p>Agradeço pela atenção e fico à disposição para uma conversa.</p>
+<%= @text_email.html_safe %>
 
 <p>Atenciosamente,<br>
-  <strong>[Seu Nome]</strong><br>
-  <strong>[Seu Telefone]</strong><br>
-  <strong>[Seu E-mail]</strong></p>
-
-
 
 </body>
 </html>

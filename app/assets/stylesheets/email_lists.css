@@ -125,3 +125,39 @@ h2 {
 #edit-text-email-btn {
     margin-top: 1rem;
 }
+/* Adicione este código ao seu arquivo CSS, como app/assets/stylesheets/email_lists.css */
+.text-email-field {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    resize: vertical; /* Permite redimensionamento apenas na vertical */
+}
+/* Estilo para o campo text_email */
+.text-email-field {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    resize: vertical; /* Permite redimensionamento apenas na vertical */
+    padding: 10px; /* Espaçamento interno para melhor aparência */
+    font-family: Arial, sans-serif; /* Fonte para melhor legibilidade */
+    font-size: 14px; /* Tamanho da fonte para melhor legibilidade */
+    border: 1px solid #ccc; /* Borda para destacar o campo */
+    border-radius: 4px; /* Bordas arredondadas para um visual mais moderno */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra interna para profundidade */
+}
+
+/* Estilo para o formulário */
+.form-label {
+    font-weight: bold; /* Negrito para a label */
+    margin-bottom: 5px; /* Espaçamento abaixo da label */
+}
+
+#text-email-box {
+    width: 80%; /* Ajusta a largura da caixa de edição de texto */
+    margin: 0 auto; /* Centraliza a caixa na tela */
+    padding: 20px; /* Espaçamento interno para melhor aparência */
+    background-color: #f8f9fa; /* Cor de fundo para destaque */
+    border: 1px solid #ddd; /* Borda para destaque */
+    border-radius: 8px; /* Bordas arredondadas para um visual mais moderno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+}

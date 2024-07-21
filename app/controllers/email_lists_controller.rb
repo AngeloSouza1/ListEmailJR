@@ -53,6 +53,7 @@ class EmailListsController < ApplicationController
 
 
   def send_document
+    text_email_content = @email_list.text_email
     if params[:document].present?
       begin
         # Percorre cada contato na lista de e-mails
@@ -65,7 +66,7 @@ class EmailListsController < ApplicationController
           )
 
           # Envie o e-mail utilizando o DocumentMailer
-          DocumentMailer.send_document(contact, document).deliver_now
+          DocumentMailer.send_document(contact, document, text_email_content).deliver_now
         end
 
         redirect_to @email_list, notice: 'O documento foi enviado com sucesso para a lista de e-mail.'
