@@ -7,6 +7,11 @@
         <p class="text-center"><strong>Aqui você cadastra uma lista de emails!</strong></p>
         <p class="text-center">Cadastre o nome e selecione os contatos para a lista de envio.</p>
       </div>
+
+
+
+
+
     </div>
 
     <!-- Div da direita fixa na tela e ocupa o espaço restante -->
@@ -15,16 +20,7 @@
         <h1 class="text-center">Nova Lista</h1>
 
         <%= form_with(model: @email_list, local: true) do |form| %>
-          <% if @email_list.errors.any? %>
-            <div id="error_explanation" class="alert alert-danger">
-              <h2><%= pluralize(@email_list.errors.count, "error") %> prohibited this email list from being saved:</h2>
-              <ul>
-                <% @email_list.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
+
 
           <div class="mb-3">
             <%= form.label :name, "Nome", class: "form-label" %>
@@ -72,8 +68,6 @@
           </div>
         <% end %>
       </div>
-
-
     </div>
   </div>
 </main>

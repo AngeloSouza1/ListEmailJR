@@ -1,7 +1,7 @@
 class EmailListsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_email_list, only: [:show, :edit, :update, :destroy, :send_document]
-  before_action :authorize_email_list_access, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_email_list_access, only: [ :show, :edit, :update, :destroy]
 
   def index
     @email_lists = current_user.email_lists.order(updated_at: :desc, created_at: :desc)
@@ -11,9 +11,7 @@ class EmailListsController < ApplicationController
     end
   end
 
-
   def show
-
   end
 
   def new
@@ -25,7 +23,6 @@ class EmailListsController < ApplicationController
   def edit
     @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc) # Ordena contatos por atualizado e criado
 
-
   end
 
   def create
@@ -33,6 +30,8 @@ class EmailListsController < ApplicationController
     if @email_list.save
       redirect_to @email_list, notice: 'A lista de e-mail foi criada com sucesso.'
     else
+      @contacts = current_user.contacts
+      flash.now[:alert] = @email_list.errors.full_messages.join(', ')
       render :new
     end
   end
@@ -41,7 +40,9 @@ class EmailListsController < ApplicationController
     if @email_list.update(email_list_params)
       redirect_to @email_list, notice: 'A lista de e-mail foi atualizada com sucesso.'
     else
-      render :show
+      @contacts = current_user.contacts
+      flash.now[:alert] = @email_list.errors.full_messages.join(', ')
+      render :edit
     end
   end
 
@@ -50,25 +51,18 @@ class EmailListsController < ApplicationController
     redirect_to email_lists_url, notice: 'A lista de e-mail foi destruída com sucesso.'
   end
 
-
-
   def send_document
     text_email_content = @email_list.text_email
     if params[:document].present?
       begin
-        # Percorre cada contato na lista de e-mails
         @email_list.contacts.each do |contact|
-          # Cria um objeto ActionDispatch::Http::UploadedFile a partir do arquivo enviado
           document = ActionDispatch::Http::UploadedFile.new(
             tempfile: params[:document].tempfile,
             filename: params[:document].original_filename,
             content_type: params[:document].content_type
           )
-
-          # Envie o e-mail utilizando o DocumentMailer
           DocumentMailer.send_document(contact, document, text_email_content).deliver_now
         end
-
         redirect_to @email_list, notice: 'O documento foi enviado com sucesso para a lista de e-mail.'
       rescue StandardError => e
         redirect_to @email_list, alert: "Falha ao enviar documento: #{e.message}"
@@ -91,4 +85,6 @@ class EmailListsController < ApplicationController
   def authorize_email_list_access
     redirect_to root_path, alert: 'Acesso negado.' unless current_user.email_lists.include?(@email_list)
   end
+
+
 end

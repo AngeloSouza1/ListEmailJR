@@ -8,10 +8,10 @@ class ContactsController < ApplicationController
       @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc)
 
       if @contacts.empty?
-        redirect_to new_contact_path, notice: 'You don\'t have any contacts yet. Create one now!'
+        redirect_to new_contact_path, notice: 'Você ainda não tem nenhum contato. Crie um agora!.'
       end
     else
-      redirect_to new_user_session_path, alert: 'You need to sign in or register before continuing.'
+      redirect_to new_user_session_path, alert: 'Você precisa fazer login ou registrar-se antes de continuar.'
     end
   end
 
@@ -25,26 +25,49 @@ class ContactsController < ApplicationController
   def edit
   end
 
+  # app/controllers/contacts_controller.rb
+  # app/controllers/contacts_controller.rb
   def create
     @contact = current_user.contacts.build(contact_params)
     if @contact.save
-      redirect_to @contact, notice: 'Contact was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @contact, notice: 'Contato criado com sucesso.' }
+        format.turbo_stream { redirect_to @contact }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("error-messages", partial: "contacts/error_messages", locals: { contact: @contact }) }
+      end
     end
   end
 
+  # def create
+  #   @contact = current_user.contacts.build(contact_params)
+  #   if @contact.save
+  #     redirect_to  @contact, notice: 'Contato criado com sucesso.'
+  #   else
+  #     @contacts = current_user.contacts
+  #     flash.now[:alert] = @contact.errors.full_messages.join(', ')
+  #     render :new
+  #   end
+  # end
+
+
+
+
   def update
     if @contact.update(contact_params)
-      redirect_to @contact, notice: 'Contact was successfully updated.'
+      redirect_to @contact, notice: 'Contato atualizado com sucesso.'
     else
+      Rails.logger.debug "Errors on update contact: #{@contact.errors.full_messages.join(", ")}"
       render :edit
     end
   end
 
   def destroy
     @contact.destroy
-    redirect_to contacts_url, notice: 'Contact was successfully destroyed.'
+    redirect_to contacts_url, notice: 'Contato excluído com sucesso.'
   end
 
   def send_document

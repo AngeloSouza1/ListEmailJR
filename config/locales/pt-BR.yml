@@ -1,12 +1,19 @@
 ---
 pt-BR:
   activerecord:
+    attributes:
+      contact:
+        name: "Nome"
+        email: "E-mail"
     errors:
-      messages:
-        record_invalid: 'A validação falhou: %{errors}'
-        restrict_dependent_destroy:
-          has_one: Não é possível excluir o registro pois existe um %{record} dependente
-          has_many: Não é possível excluir o registro pois existem %{record} dependentes
+      models:
+        contact:
+          attributes:
+            name:
+              blank: "não pode ficar em branco"
+            email:
+              blank: "não pode ficar em branco"
+              invalid: "não é válido"
   date:
     abbr_day_names:
       - dom
