@@ -12,6 +12,7 @@ class EmailListsController < ApplicationController
   end
 
   def show
+    
   end
 
   def new
@@ -21,7 +22,7 @@ class EmailListsController < ApplicationController
   end
 
   def edit
-    @contacts = current_user.contacts
+     @contacts = current_user.contacts
   end
 
 
@@ -43,8 +44,9 @@ class EmailListsController < ApplicationController
 
 
   def update
+
     if @email_list.update(email_list_params)
-      redirect_to @email_list, notice: 'A lista de e-mail foi atualizada com sucesso.'
+      redirect_to email_lists_url, notice: 'A lista de e-mail foi atualizada com sucesso.'
     else
       @contacts = current_user.contacts
       flash.now[:alert] = @email_list.errors.full_messages.join(', ')

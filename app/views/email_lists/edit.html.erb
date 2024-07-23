@@ -1,7 +1,5 @@
 <main class="container-fluid">
   <div class="row vh-100">
-
-
     <div class="col-md-4 bg-dark text-white p-0">
       <div style="max-width: 300px; width: 100%; margin-top: 7rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
         <h2 class="text-center">Edição de Listas de Emails</h2>
@@ -10,12 +8,10 @@
       </div>
 
       <%= render 'email_lists/error_messages', contact: @email_list %>
-
     </div>
 
-
     <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 100%; margin-top: 0rem;">
-      <div style="max-width: 850px; width: 100%;  padding: 1rem; margin-top: 5rem;" class="rounded p-4 shadow-sm bg-light">
+      <div style="max-width: 850px; width: 100%; padding: 1rem; margin-top: 5rem;" class="rounded p-4 shadow-sm bg-light">
         <h1 class="text-center">Editar Lista</h1>
 
         <%= form_with(model: @email_list, local: true) do |form| %>
@@ -31,9 +27,9 @@
               <span id="selected-count" class="ms-3">Contatos Selecionados: <%= @email_list.contact_ids.count %></span>
             </div>
             <% if @contacts.present? %>
-              <div class="table-responsive" style="height: 200px; overflow-y: scroll;">
+              <div class="table-responsive" style="height: 200px; overflow-y: auto;">
                 <table class="table table-hover table-striped table-bordered text-center">
-                  <thead class="thead-dark">
+                  <thead class="thead-dark sticky-header">
                   <tr>
                     <th scope="col"><input type="checkbox" id="select-all" class="form-check-input"></th>
                     <th scope="col">Nome</th>
@@ -61,7 +57,9 @@
               <p class="text-center">Nenhum contato disponível.</p>
             <% end %>
           </div>
+
           <br>
+
           <div class="d-flex justify-content-between mb-3">
             <%= form.submit 'Salvar', class: 'btn btn-primary' %>
             <%= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
@@ -86,13 +84,7 @@
         z-index: 1;
     }
 </style>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        if (window.location.hash === "#edit") {
-            window.location.reload();
-        }
-    });
-</script>
+
 <script>
     document.addEventListener("turbo:load", function() {
         const checkboxes = document.querySelectorAll(".contact-checkbox");
@@ -126,9 +118,11 @@
             });
         }
 
+
+
         updateSelectedCount();
     });
 
 
-
 </script>
+
