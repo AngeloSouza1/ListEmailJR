@@ -21,20 +21,26 @@ class EmailListsController < ApplicationController
   end
 
   def edit
-    @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc) # Ordena contatos por atualizado e criado
-
+    @contacts = current_user.contacts
   end
+
 
   def create
     @email_list = current_user.email_lists.build(email_list_params)
     if @email_list.save
-      redirect_to @email_list, notice: 'A lista de e-mail foi criada com sucesso.'
+      respond_to do |format|
+        format.html { redirect_to  @email_list, notice: 'A lista de e-mail foi criada com sucesso.' }
+        format.turbo_stream { redirect_to email_lists_path }
+      end
     else
-      @contacts = current_user.contacts
-      flash.now[:alert] = @email_list.errors.full_messages.join(', ')
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("error-messages", partial: "email_lists/error_messages", locals: { email_list: @email_list }) }
+      end
     end
   end
+
+
 
   def update
     if @email_list.update(email_list_params)

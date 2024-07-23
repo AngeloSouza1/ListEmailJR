@@ -25,8 +25,7 @@ class ContactsController < ApplicationController
   def edit
   end
 
-  # app/controllers/contacts_controller.rb
-  # app/controllers/contacts_controller.rb
+
   def create
     @contact = current_user.contacts.build(contact_params)
     if @contact.save
@@ -41,17 +40,6 @@ class ContactsController < ApplicationController
       end
     end
   end
-
-  # def create
-  #   @contact = current_user.contacts.build(contact_params)
-  #   if @contact.save
-  #     redirect_to  @contact, notice: 'Contato criado com sucesso.'
-  #   else
-  #     @contacts = current_user.contacts
-  #     flash.now[:alert] = @contact.errors.full_messages.join(', ')
-  #     render :new
-  #   end
-  # end
 
 
 

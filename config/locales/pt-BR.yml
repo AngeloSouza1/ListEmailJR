@@ -1,19 +1,48 @@
----
 pt-BR:
   activerecord:
     attributes:
       contact:
         name: "Nome"
         email: "E-mail"
+      email_list:
+        name: "Nome"
+        contact_ids: "Contatos"
+    models:
+      email_list: "Lista de Email"
     errors:
       models:
-        contact:
+        email_list:
           attributes:
             name:
               blank: "não pode ficar em branco"
-            email:
-              blank: "não pode ficar em branco"
-              invalid: "não é válido"
+            contact_ids:
+              blank: "-> deve selecionar pelo menos um!"
+    helpers:
+      submit:
+        email_list:
+          create: "Criar Lista de Email"
+          update: "Atualizar Lista de Email"
+    flash:
+      actions:
+        create:
+          notice: "%{resource_name} foi criada com sucesso."
+        update:
+          notice: "%{resource_name} foi atualizada com sucesso."
+        destroy:
+          notice: "%{resource_name} foi removida com sucesso."
+    views:
+      email_list:
+        new:
+          title: "Nova Lista de Email"
+        edit:
+          title: "Editar Lista de Email"
+        index:
+          title: "Listas de Email"
+        show:
+          title: "Detalhes da Lista de Email"
+        form:
+          name: "Nome"
+          contacts: "Contatos"
   date:
     abbr_day_names:
       - dom

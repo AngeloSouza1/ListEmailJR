@@ -1,9 +1,9 @@
 <div id="error-messages">
-  <% if @contact.errors.any? %>
+  <% if @email_list.errors.any? %>
     <div style="max-width: 300px; width: 100%; margin-top: 1rem; border: 2px solid red;" class="rounded p-4 shadow-sm mx-auto">
       <h4 class="alert-heading">Erros:</h4>
       <ul>
-        <% @contact.errors.full_messages.each do |message| %>
+        <% @email_list.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>

@@ -2,19 +2,18 @@
   <div class="row vh-100">
     <!-- Div da esquerda -->
     <div class="col-md-4 bg-dark text-white p-0">
-      <div style="max-width: 300px; width: 100%; margin-top: 10rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
+      <div style="max-width: 300px; width: 100%; margin-top: 7rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
         <h2 class="text-center">Cadastro de Listas de Emails</h2>
         <p class="text-center"><strong>Aqui você cadastra uma lista de emails!</strong></p>
         <p class="text-center">Cadastre o nome e selecione os contatos para a lista de envio.</p>
       </div>
 
 
-
-
+      <%= render 'email_lists/error_messages', contact: @email_list %>
 
     </div>
 
-    <!-- Div da direita fixa na tela e ocupa o espaço restante -->
+
     <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 40%; margin-top: 0rem;">
       <div style="max-width: 850px; width: 100%;  padding: 1rem; margin-top: 5rem;" class="rounded p-4 shadow-sm bg-light" id="main-content">
         <h1 class="text-center">Nova Lista</h1>
@@ -34,8 +33,8 @@
             </div>
             <% if @contacts.present? %>
 
-<!--                <table class="table table-bordered table-striped" id="contacts-table">-->
-              <div class="table-responsive" style="height: 220px; overflow-y: scroll;">
+
+              <div class="table-responsive" style="height: 200px; overflow-y: scroll;">
                 <table class="table table-hover table-striped table-bordered text-center">
                   <thead class="thead-dark">
                   <tr>
@@ -63,8 +62,8 @@
               <p>No contacts available.</p>
             <% end %>
           </div>
-
-          <div class="d-flex justify-content-between mb-3">
+          <br>
+           <div class="d-flex justify-content-between mb-3">
             <%= form.submit 'Salvar', class: 'btn btn-primary' %>
             <%= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
           </div>

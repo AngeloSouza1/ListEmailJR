@@ -9,17 +9,16 @@
         <p class="text-center">Cadastre o nome e adicione os contatos na lista.</p>
       </div>
     </div>
-    <div class="col-md-8 d-flex justify-content-center align-items-center" style="height: 98vh;">
-<!--      <div style="max-width: 900px; width: 100%; border: 2px solid black;" class="rounded p-4 shadow-sm bg-light">-->
+    <div class="col-md-8 d-flex justify-content-center align-items-center" style="height: 100vh;">
           <div style="max-width: 900px; width: 100%; class="rounded p-4 shadow-sm bg-light">
-
+          <br>
+          <br>
+          <br>
           <div class="d-flex justify-content-between mb-3">
             <%= link_to 'Nova Lista de Emails', new_email_list_path, class: 'btn btn-primary' %>
-            <p class="text-right"><strong>Total de Listas: <%= @email_lists.count %></strong></p>
           </div>
 
-
-        <div class="table-responsive" style="height: 400px; overflow-y: scroll;">
+        <div class="table-responsive" style="height: 350px; overflow-y: scroll;">
           <table class="table table-hover table-striped table-bordered text-center">
             <thead class="thead-dark">
             <tr>
@@ -45,7 +44,9 @@
             </tbody>
           </table>
         </div>
-      </div>
+      <br>
+      <p> <strong>Total de Listas: <%= @email_lists.count %></strong></p>
+    </div>
     </div>
   </div>
 </div>
