@@ -22,6 +22,10 @@
     <!-- Div da direita fixa na tela e ocupa o espaço restante -->
     <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 100%;">
       <div class="details-box rounded p-4 shadow-sm bg-light" id="details-box" >
+        <br>
+        <br>
+        <br>
+        <br>
         <h1 class="text-center mb-4">Detalhes da Lista</h1>
         <div class="mb-3 d-flex justify-content-between">
           <p><strong>Nome:</strong> <%= @email_list.name %></p>
@@ -70,14 +74,13 @@
       <div class="details-box rounded p-4 shadow-sm bg-light d-none" id="text-email-box">
         <h4 class="text-center mb-4">Editar Texto do Email</h4>
         <%= form_with model: @email_list, url: @email_list.persisted? ? email_list_path(@email_list) : email_lists_path, local: true, method: @email_list.persisted? ? :patch : :post do |form| %>
+
           <div class="mb-3">
             <%= form.label :text_email, "Digite aqui seu texto personalizado!", class: "form-label" %>
-            <%= form.text_area :text_email,
-                               value: "Estou me candidatando à vaga de [Nome da Vaga] na [Nome da Empresa].\n\nEm anexo, segue meu currículo para sua análise.\n\nAgradeço pela atenção e fico à disposição para uma conversa.\n\nAtenciosamente,\n[Seu Nome]\n[Seu Telefone]\n[Seu E-mail]",
-                               rows: 10,
-                               class: "form-control text-email-field"
-            %>
+            <%= form.text_area :text_email, rows: 10, class: "form-control text-email-field" %>
+<!--            "Estou me candidatando à vaga de [Nome da Vaga] na [Nome da Empresa].\n\nEm anexo, segue meu currículo para sua análise.\n\nAgradeço pela atenção e fico à disposição para uma conversa.\n\nAtenciosamente,\n[Seu Nome]\n[Seu Telefone]\n[Seu E-mail]",-->
           </div>
+
           <div class="text-center">
             <%= form.submit "Salvar", class: "btn btn-primary" %>
           </div>

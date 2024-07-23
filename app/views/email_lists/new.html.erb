@@ -15,7 +15,7 @@
     </div>
 
     <!-- Div da direita fixa na tela e ocupa o espaço restante -->
-    <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 100%; margin-top: 0rem;">
+    <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 40%; margin-top: 0rem;">
       <div style="max-width: 850px; width: 100%;  padding: 1rem; margin-top: 5rem;" class="rounded p-4 shadow-sm bg-light" id="main-content">
         <h1 class="text-center">Nova Lista</h1>
 
@@ -33,8 +33,10 @@
               <span id="selected-count" class="ms-3">Contatos Selecionados: 0</span>
             </div>
             <% if @contacts.present? %>
-              <div class="contacts-container">
-                <table class="table table-bordered table-striped" id="contacts-table">
+
+<!--                <table class="table table-bordered table-striped" id="contacts-table">-->
+              <div class="table-responsive" style="height: 220px; overflow-y: scroll;">
+                <table class="table table-hover table-striped table-bordered text-center">
                   <thead class="thead-dark">
                   <tr>
                     <th scope="col"><input type="checkbox" id="select-all" class="form-check-input"></th>
