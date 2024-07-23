@@ -9,16 +9,17 @@
     </div>
 
     <div class="col-md-8">
-      <h1 class="mb-4">Contatos</h1>
-
+      <br>
+      <br>
+      <br>
+      <br>
       <div class="d-flex justify-content-between mb-3">
         <%= link_to 'Novo Contato', new_contact_path, class: "btn btn-primary" %>
-        <p class="text-right"><strong>Total de Contatos: <%= @contacts.count %></strong></p>
       </div>
 
-      <div style="max-height: 450px; overflow-y: auto;">
+      <div style="max-height: 399px; overflow-y: auto;">
         <table class="table table-hover table-striped table-bordered text-center">
-          <thead class="thead-dark">
+          <thead class="thead-dark sticky-header">
           <tr>
             <th>Nome</th>
             <th>Email</th>
@@ -37,7 +38,11 @@
           <% end %>
           </tbody>
         </table>
+
       </div>
+      <br>
+      <br>
+      <p ><strong>Total de Contatos: <%= @contacts.count %></strong></p>
     </div>
   </div>
 </main>

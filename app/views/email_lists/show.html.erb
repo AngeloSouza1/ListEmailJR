@@ -5,7 +5,7 @@
 
     <!-- Div da esquerda -->
     <div class="col-md-4 bg-dark text-white p-0">
-      <div style="max-width: 300px; width: 100%; margin-top: 10rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
+      <div style="max-width: 300px; width: 100%; margin-top: 6rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
         <h2 class="text-center">Cadastro de Listas de Emails</h2>
         <p class="text-center"><strong>Aqui você cadastra uma lista de emails!</strong></p>
         <p class="text-center">Cadastre o nome e selecione os contatos para a lista de envio.</p>
@@ -21,19 +21,20 @@
 
     <!-- Div da direita fixa na tela e ocupa o espaço restante -->
     <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 100%;">
-      <div class="details-box rounded p-4 shadow-sm bg-light" id="details-box" >
+      <div class=" rounded p-4 shadow-sm bg-light" id="details-box" >
         <br>
         <br>
         <br>
-        <br>
-        <h1 class="text-center mb-4">Detalhes da Lista</h1>
         <div class="mb-3 d-flex justify-content-between">
           <p><strong>Nome:</strong> <%= @email_list.name %></p>
           <p><strong>Data de Envio:</strong> <%= @email_list.send_date.present? ? @email_list.send_date.strftime("%d/%m/%Y %H:%M") : DateTime.current.strftime("%d/%m/%Y %H:%M") %></p>
         </div>
-        <div class="contacts-container">
+
+
           <% if @email_list.contacts.any? %>
-            <table class="table table-bordered table-striped" id="contacts-table">
+
+            <div class="table-responsive" style="height: 200px; overflow-y: scroll;">
+              <table class="table table-hover table-striped table-bordered text-center">
               <thead class="thead-dark sticky-header">
               <tr>
                 <th scope="col">Nome</th>
@@ -54,14 +55,15 @@
           <% end %>
         </div>
         <br>
-        <h4 class="mb-3">Enviar Documento</h4>
+        <br>
+        <h5 class="mb-3">Enviar Documento</h5>
         <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true do |form| %>
           <div class="d-flex mb-3">
             <div class="me-2 flex-grow-1">
               <%= form.label :document, "Selecione seu documento para anexar", class: "form-label" %>
               <%= form.file_field :document, accept: '.pdf,.doc,.odt', class: "form-control" %>
             </div>
-            <%= form.submit "Enviar Documento", class: "btn btn-warning align-self-end" %>
+            <%= form.submit "Enviar Lista", class: "btn btn-warning align-self-end" %>
           </div>
         <% end %>
         <div class="mt-4">

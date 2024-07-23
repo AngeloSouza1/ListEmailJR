@@ -1,12 +1,15 @@
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Bem-vindo ao sistema de Lista de E-mails</h1>
-        <p class="lead text-body-secondary"><p>Olá! Sou Angelo Souza, desenvolvedor apaixonado por tecnologia. Este projeto visa auxiliar desenvolvedores  a se apresentarem de maneira eficaz a recrutadores e empresas. A aplicação permite gerenciar listas de emails e enviar documentos importantes diretamente aos contatos, facilitando a comunicação e a apresentação profissional. Ideal para desenvolvedores iniciantes que buscam destacar suas habilidades e experiências de forma organizada e impactante.</p>
-        </p>
-        <p>
-          <a href="<%= email_lists_path %>" class="btn btn-primary my-2">Ver Listas</a>
-        </p>
-      </div>
+<section class="py-5 text-center container">
+  <div class="row py-lg-5 d-flex align-items-center">
+    <div class="col-lg-4 col-md-6">
+      <img src="<%= asset_path('background.jpg') %>" alt="Background Image" class="img-fluid rounded">
     </div>
-  </section>
+    <div class="col-lg-8 col-md-6 mx-auto">
+      <h1 class="fw-light">Bem-vindo ao sistema de Lista de E-mails</h1>
+      <p class="lead text-body-secondary">Olá! Sou Angelo Souza, desenvolvedor apaixonado por tecnologia. Este projeto visa auxiliar desenvolvedores a se apresentarem de maneira eficaz a recrutadores e empresas. A aplicação permite gerenciar listas de emails e enviar documentos importantes diretamente aos contatos, facilitando a comunicação e a apresentação profissional. Ideal para desenvolvedores iniciantes que buscam destacar suas habilidades e experiências de forma organizada e impactante.</p>
+      <p>
+        <a href="<%= email_lists_path %>" class="btn btn-primary my-2">Ver Listas</a>
+      </p>
+    </div>
+  </div>
+</section>
+
