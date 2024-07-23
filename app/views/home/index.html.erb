@@ -1,15 +1,22 @@
-<section class="py-5 text-center container">
-  <div class="row py-lg-5 d-flex align-items-center">
-    <div class="col-lg-4 col-md-6">
-      <img src="<%= asset_path('background.jpg') %>" alt="Background Image" class="img-fluid rounded">
+<style>
+    .custom-section {
+        margin-top: 50px; /* Aumenta o espaço no topo da section */
+    }
+    .custom-col {
+        height: 500px; /* Aumenta a altura da coluna da imagem */
+    }
+</style>
+
+<div class="container-fluid d-flex align-items-center justify-content-center" style="height: 100vh;">
+  <div class="row w-100">
+    <div class="col-lg-3 col-md-4 d-flex align-items-center justify-content-center custom-col"> <!-- Adicionada classe para altura -->
+      <img src="<%= asset_path('background.jpg') %>" alt="Background Image" class="img-fluid custom-img">
     </div>
-    <div class="col-lg-8 col-md-6 mx-auto">
-      <h1 class="fw-light">Bem-vindo ao sistema de Lista de E-mails</h1>
-      <p class="lead text-body-secondary">Olá! Sou Angelo Souza, desenvolvedor apaixonado por tecnologia. Este projeto visa auxiliar desenvolvedores a se apresentarem de maneira eficaz a recrutadores e empresas. A aplicação permite gerenciar listas de emails e enviar documentos importantes diretamente aos contatos, facilitando a comunicação e a apresentação profissional. Ideal para desenvolvedores iniciantes que buscam destacar suas habilidades e experiências de forma organizada e impactante.</p>
-      <p>
-        <a href="<%= email_lists_path %>" class="btn btn-primary my-2">Ver Listas</a>
-      </p>
+
+    <div class="col-lg-9 col-md-8 d-flex flex-column align-items-center justify-content-center text-center custom-section">
+      <h1 class="fw-light mb-4">Bem-vindo ao sistema de Lista de E-mails</h1>
+      <p class="lead text-body-secondary mb-4">Olá! Sou Angelo Souza, desenvolvedor apaixonado por tecnologia. Este projeto visa auxiliar desenvolvedores a se apresentarem de maneira eficaz a recrutadores e empresas. A aplicação permite gerenciar listas de emails e enviar documentos importantes diretamente aos contatos, facilitando a comunicação e a apresentação profissional. Ideal para desenvolvedores iniciantes que buscam destacar suas habilidades e experiências de forma organizada e impactante.</p>
+      <a href="<%= email_lists_path %>" class="btn btn-primary">Ver Listas</a>
     </div>
   </div>
-</section>
-
+</div>
