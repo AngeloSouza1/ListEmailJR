@@ -2,7 +2,6 @@
 
 <main class="container-fluid">
   <div class="row vh-100">
-
     <!-- Div da esquerda -->
     <div class="col-md-4 bg-dark text-white p-0">
       <div style="max-width: 300px; width: 100%; margin-top: 6rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
@@ -15,51 +14,37 @@
         </div>
       </div>
 
-      <%= render 'email_lists/error_messages', email_list: @email_list %>
-
       <% if flash[:notice] %>
-      <div style="max-width: 300px; width: 100%; margin-top: 1rem; border: 2px solid green;" class="rounded p-4 shadow-sm mx-auto">
-
-        <h4 class="alert-heading">Aviso:</h4>
-
-            <div>
-              <%= flash[:notice] %>
-            </div>
-       </div>
+        <div style="max-width: 300px; width: 100%; margin-top: 1rem; border: 2px solid green;" class="rounded p-4 shadow-sm mx-auto">
+          <h4 class="alert-heading">Aviso:</h4>
+          <div>
+            <%= flash[:notice] %>
+          </div>
+        </div>
       <% end %>
 
-      <%# if flash[:notice] %>
-<!--        <div class="alert alert-success">-->
-          <%#= flash[:notice] %>
-<!--        </div>-->
-      <%# end %>
-
-      <%# if flash[:alert] %>
-<!--        <div class="alert alert-danger">-->
-          <%#= flash[:alert] %>
-<!--        </div>-->
-      <%# end %>
-
-
-
+      <% if flash[:alert] %>
+        <div style="max-width: 300px; width: 100%; margin-top: 1rem; border: 2px solid red;" class="rounded p-4 shadow-sm mx-auto">
+          <h4 class="alert-heading">Erro:</h4>
+          <div>
+            <%= flash[:alert] %>
+          </div>
+        </div>
+      <% end %>
     </div>
 
     <!-- Div da direita fixa na tela e ocupa o espaço restante -->
     <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 100%;">
-      <div class=" rounded p-4 shadow-sm bg-light" id="details-box" >
-        <br>
-        <br>
-        <br>
+      <div class="rounded p-4 shadow-sm bg-light" id="details-box">
+        <br><br><br>
         <div class="mb-3 d-flex justify-content-between">
           <p><strong>Nome:</strong> <%= @email_list.name %></p>
           <p><strong>Data de Envio:</strong> <%= @email_list.send_date.present? ? @email_list.send_date.strftime("%d/%m/%Y %H:%M") : DateTime.current.strftime("%d/%m/%Y %H:%M") %></p>
         </div>
 
-
-          <% if @email_list.contacts.any? %>
-
-            <div class="table-responsive" style="height: 200px; overflow-y: scroll;">
-              <table class="table table-hover table-striped table-bordered text-center">
+        <% if @email_list.contacts.any? %>
+          <div class="table-responsive" style="height: 200px; overflow-y: scroll;">
+            <table class="table table-hover table-striped table-bordered text-center">
               <thead class="thead-dark sticky-header">
               <tr>
                 <th scope="col">Nome</th>
@@ -75,12 +60,12 @@
               <% end %>
               </tbody>
             </table>
-          <% else %>
-            <p class="text-center">Nenhum contato disponível.</p>
-          <% end %>
-        </div>
-        <br>
-        <br>
+          </div>
+        <% else %>
+          <p class="text-center">Nenhum contato disponível.</p>
+        <% end %>
+
+        <br><br>
         <h5 class="mb-3">Enviar Documento</h5>
         <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true, id: "send-document-form" do |form| %>
           <div class="d-flex mb-3">
@@ -92,7 +77,6 @@
           </div>
         <% end %>
 
-
         <div class="mt-4">
           <%= link_to 'Editar', edit_email_list_path(@email_list), class: 'btn btn-primary me-2' %>
           <%= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
@@ -103,13 +87,10 @@
       <div class="details-box rounded p-4 shadow-sm bg-light d-none" id="text-email-box">
         <h4 class="text-center mb-4">Editar Texto do Email</h4>
         <%= form_with model: @email_list, url: @email_list.persisted? ? email_list_path(@email_list) : email_lists_path, local: true, method: @email_list.persisted? ? :patch : :post do |form| %>
-
           <div class="mb-3">
             <%= form.label :text_email, "Digite aqui seu texto personalizado!", class: "form-label" %>
             <%= form.text_area :text_email, rows: 10, class: "form-control text-email-field" %>
-<!--            "Estou me candidatando à vaga de [Nome da Vaga] na [Nome da Empresa].\n\nEm anexo, segue meu currículo para sua análise.\n\nAgradeço pela atenção e fico à disposição para uma conversa.\n\nAtenciosamente,\n[Seu Nome]\n[Seu Telefone]\n[Seu E-mail]",-->
           </div>
-
           <div class="text-center">
             <%= form.submit "Salvar", class: "btn btn-primary" %>
           </div>
@@ -138,82 +119,52 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 </main>
-<script>
-    document.addEventListener("turbo:load", function() {
+
+
+    <script>
+        document.addEventListener("turbo:load", function() {
+        const documentField = document.getElementById("document-field");
+        const sendDocumentButton = document.getElementById("send-document-button");
+        const selectedCountSpan = document.getElementById("selected-count");
         const checkboxes = document.querySelectorAll(".contact-checkbox");
         const selectAllCheckbox = document.getElementById("select-all");
-        const selectedCountSpan = document.getElementById("selected-count");
+
+        // Desabilitar o botão de envio inicialmente
+        sendDocumentButton.disabled = true;
+
+        // Função para habilitar/desabilitar o botão de envio
+        function toggleSendButton() {
+        sendDocumentButton.disabled = documentField.files.length === 0;
+    }
+
+        // Adicionar evento de mudança ao campo de arquivo
+        documentField.addEventListener("change", toggleSendButton);
 
         function updateSelectedCount() {
-            const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
-            selectedCountSpan.textContent = `Contatos Selecionados: ${selectedCount}`;
-        }
+        const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
+        selectedCountSpan.textContent = `Contatos Selecionados: ${selectedCount}`;
+    }
 
         function handleSelectAll() {
-            const isChecked = selectAllCheckbox.checked;
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = isChecked;
-            });
-            updateSelectedCount();
-        }
+        const isChecked = selectAllCheckbox.checked;
+        checkboxes.forEach(checkbox => {
+        checkbox.checked = isChecked;
+    });
+        updateSelectedCount();
+    }
 
-
-        // Event Listeners
         if (selectAllCheckbox) {
-            selectAllCheckbox.addEventListener("change", function() {
-                handleSelectAll();
-            });
-        }
+        selectAllCheckbox.addEventListener("change", handleSelectAll);
+    }
 
-        if (checkboxes.length > 0) {
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener("change", function() {
-                    updateSelectedCount();
-                });
-            });
-        }
-
+        checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", updateSelectedCount);
+    });
 
         updateSelectedCount();
     });
+</script>
 
-
-    document.addEventListener("turbo:load", function() {
-        const sendDocumentButton = document.getElementById("send-document-button");
-        const documentField = document.getElementById("document-field");
-        const sendDocumentForm = document.getElementById("send-document-form");
-
-        if (sendDocumentButton) {
-            sendDocumentButton.addEventListener("click", function(event) {
-                if (documentField.files.length === 0) {
-                    event.preventDefault();
-                    alert("Por favor, selecione um documento antes de enviar.");
-                } else {
-                     console.log("Arquivo anexado:", documentField.files[0].name);
-                }
-            });
-        }
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </script>

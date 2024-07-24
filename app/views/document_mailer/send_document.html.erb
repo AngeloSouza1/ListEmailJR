@@ -7,7 +7,7 @@
   <style>
       /* Estilos gerais do corpo do e-mail */
       body {
-          font-family: Arial, sans-serif;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           line-height: 1.6;
           color: #333;
           margin: 0;
@@ -17,16 +17,17 @@
       /* Container principal */
       .container {
           max-width: 600px;
-          margin: 20px auto;
+          margin: 40px auto;
           background: #fff;
-          padding: 20px;
+          padding: 30px;
           border-radius: 8px;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       }
       /* Estilos para parágrafos */
       p {
-          margin-bottom: 1em;
-          line-height: 1.5;
+          margin-bottom: 1.5em;
+          line-height: 1.6;
+          text-align: left; /* Alinhamento à esquerda */
       }
       /* Estilo para texto em negrito */
       strong {
@@ -35,18 +36,43 @@
       }
       /* Estilo para o cabeçalho */
       h1 {
-          font-size: 24px;
+          font-size: 28px;
           color: #2980b9; /* Cor do cabeçalho */
-          margin-bottom: 20px;
+          margin-bottom: 25px;
+          text-align: left; /* Alinhamento à esquerda */
+      }
+      /* Estilo para o conteúdo do e-mail */
+      .email-content {
+          background-color: #eaf2f8; /* Fundo suave */
+          border-left: 4px solid #2980b9; /* Borda à esquerda */
+          padding: 15px 20px; /* Espaçamento interno */
+          border-radius: 5px; /* Bordas arredondadas */
+          margin: 20px 0; /* Margem superior e inferior */
+      }
+      .text-email {
+          margin: 0; /* Remove a margem padrão do parágrafo */
+          font-size: 16px; /* Tamanho da fonte */
+          line-height: 1.5; /* Altura da linha */
+          color: #333; /* Cor do texto */
       }
 
+      /* Estilo para links */
+      a {
+          color: #2980b9;
+          text-decoration: none;
+      }
+      a:hover {
+          color: #3498db;
+      }
   </style>
 </head>
 <body>
 <div class="container">
   <h1>Olá, <strong><%= @contact.name %></strong></h1>
 
-  <p><%= simple_format(@text_email) %></p>
+  <div class="email-content">
+    <p class="text-email"><%= simple_format(@text_email) %></p>
+  </div>
 
 
 </div>

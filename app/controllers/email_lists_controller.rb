@@ -6,9 +6,6 @@ class EmailListsController < ApplicationController
   def index
     @email_lists = current_user.email_lists.order(updated_at: :desc, created_at: :desc)
 
-    if @email_lists.empty?
-      flash.now[:notice] = "Você ainda não tem nenhuma lista de e-mail. Crie uma agora!"
-    end
   end
 
   def show
@@ -45,10 +42,9 @@ class EmailListsController < ApplicationController
 
   def update
     if @email_list.update(email_list_params)
-      redirect_to email_lists_url, notice: 'A lista de e-mail foi atualizada com sucesso.'
+      redirect_to email_lists_url
     else
       @contacts = current_user.contacts
-      Rails.logger.debug "EmailList update failed: #{@email_list.errors.full_messages.join(', ')}"
       render :edit
     end
   end
@@ -72,7 +68,7 @@ class EmailListsController < ApplicationController
           DocumentMailer.send_document(contact, document, text_email_content).deliver_now
         end
         redirect_to @email_list
-        flash[:notice] = "Seu e-mail foi enviado com sucesso!"
+        flash[:notice] = "Sua lista de e-mails foi enviada com sucesso!"
       rescue StandardError => e
         redirect_to @email_list
         flash[:alert] = "Falha ao enviar documento: #{e.message}"
