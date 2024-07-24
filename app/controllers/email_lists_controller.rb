@@ -18,6 +18,7 @@ class EmailListsController < ApplicationController
   end
 
   def edit
+    @email_list = EmailList.find(params[:id])
      @contacts = current_user.contacts
   end
 
@@ -26,7 +27,7 @@ class EmailListsController < ApplicationController
     @email_list = current_user.email_lists.build(email_list_params)
     if @email_list.save
       respond_to do |format|
-        format.html { redirect_to  @email_list, notice: 'A lista de e-mail foi criada com sucesso.' }
+        format.html { redirect_to  @email_list }
         format.turbo_stream { redirect_to email_lists_path }
       end
     else
@@ -55,7 +56,7 @@ class EmailListsController < ApplicationController
   end
 
   def send_document
-    text_email_content = @email_list.text_email
+    text_email_content = @email_list.text_email || 'Não há conteúdo.'
     if params[:documents].present? && params[:documents].is_a?(Array) # Verifica se há documentos enviados e se é um array
       begin
         # Coleta todos os documentos em um array

@@ -14,7 +14,7 @@
         </div>
       </div>
 
-      <% if flash[:notice] %>
+      <% if flash[:notice].present? %>
         <div style="max-width: 300px; width: 100%; margin-top: 1rem; border: 2px solid green;" class="rounded p-4 shadow-sm mx-auto">
           <h4 class="alert-heading">Aviso:</h4>
           <div>
@@ -23,7 +23,7 @@
         </div>
       <% end %>
 
-      <% if flash[:alert] %>
+      <% if flash[:alert].present? %>
         <div style="max-width: 300px; width: 100%; margin-top: 1rem; border: 2px solid red;" class="rounded p-4 shadow-sm mx-auto">
           <h4 class="alert-heading">Erro:</h4>
           <div>
@@ -31,6 +31,7 @@
           </div>
         </div>
       <% end %>
+
     </div>
 
     <!-- Div da direita fixa na tela e ocupa o espaço restante -->
@@ -90,7 +91,7 @@
         <%= form_with model: @email_list, url: @email_list.persisted? ? email_list_path(@email_list) : email_lists_path, local: true, method: @email_list.persisted? ? :patch : :post do |form| %>
           <div class="mb-3">
             <%= form.label :text_email, "Digite aqui seu texto personalizado!", class: "form-label" %>
-            <%= form.text_area :text_email, rows: 10, class: "form-control text-email-field" %>
+            <%= form.text_area :text_email, value: @email_list.text_email, rows: 10, class: "form-control text-email-field" %>
           </div>
           <div class="text-center">
             <%= form.submit "Salvar", class: "btn btn-primary" %>
@@ -110,7 +111,7 @@
               <%= form_with model: @email_list, url: @email_list.persisted? ? email_list_path(@email_list) : email_lists_path, local: true, method: @email_list.persisted? ? :patch : :post do |form| %>
                 <div class="mb-3">
                   <%= form.label :text_email, "Digite aqui seu texto personalizado!", class: "form-label" %>
-                  <%= form.text_area :text_email, rows: 10, class: "form-control text-email-field" %>
+                  <%= form.text_area :text_email, value: @email_list.text_email, rows: 10, class: "form-control text-email-field" %>
                 </div>
                 <div class="text-center">
                   <%= form.submit "Salvar", class: "btn btn-primary" %>
