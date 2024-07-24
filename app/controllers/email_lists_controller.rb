@@ -4,8 +4,7 @@ class EmailListsController < ApplicationController
   before_action :authorize_email_list_access, only: [ :show, :edit, :update, :destroy]
 
   def index
-    @email_lists = current_user.email_lists.order(updated_at: :desc, created_at: :desc)
-
+     @email_lists = current_user.email_lists.order(updated_at: :desc)
   end
 
   def show
@@ -19,7 +18,7 @@ class EmailListsController < ApplicationController
   end
 
   def edit
-     @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc)
+     @contacts = current_user.contacts
   end
 
 
@@ -57,26 +56,37 @@ class EmailListsController < ApplicationController
 
   def send_document
     text_email_content = @email_list.text_email
-    if params[:document].present?
+    if params[:documents].present? && params[:documents].is_a?(Array) # Verifica se há documentos enviados e se é um array
       begin
-        @email_list.contacts.each do |contact|
-          document = ActionDispatch::Http::UploadedFile.new(
-            tempfile: params[:document].tempfile,
-            filename: params[:document].original_filename,
-            content_type: params[:document].content_type
+        # Coleta todos os documentos em um array
+        documents = params[:documents].map do |document_file|
+          next if document_file.blank? # Ignora arquivos vazios
+
+          # Cria um novo arquivo a partir do upload
+          ActionDispatch::Http::UploadedFile.new(
+            tempfile: document_file.tempfile,
+            filename: document_file.original_filename,
+            content_type: document_file.content_type
           )
-          DocumentMailer.send_document(contact, document, text_email_content).deliver_now
+        end.compact # Remove nils do array
+
+        # Envia o e-mail para cada contato com todos os documentos anexados
+        @email_list.contacts.each do |contact|
+          DocumentMailer.send_documents(contact, documents, text_email_content).deliver_now
         end
-        redirect_to @email_list
+
         flash[:notice] = "Sua lista de e-mails foi enviada com sucesso!"
       rescue StandardError => e
-        redirect_to @email_list
-        flash[:alert] = "Falha ao enviar documento: #{e.message}"
+        flash[:alert] = "Falha ao enviar documentos: #{e.message}"
       end
     else
-      redirect_to @email_list
+      flash[:alert] = "Nenhum documento foi enviado."
     end
+    redirect_to @email_list
   end
+
+
+
 
   private
 

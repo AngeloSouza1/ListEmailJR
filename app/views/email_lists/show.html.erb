@@ -52,7 +52,7 @@
               </tr>
               </thead>
               <tbody>
-              <% @email_list.contacts.each do |contact| %>
+              <% @email_list.contacts.order(updated_at: :desc).each do |contact| %> <!-- Ordenando contatos por updated_at -->
                 <tr>
                   <td><%= contact.name %></td>
                   <td><%= contact.email %></td>
@@ -67,11 +67,12 @@
 
         <br><br>
         <h5 class="mb-3">Enviar Documento</h5>
+
         <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true, id: "send-document-form" do |form| %>
           <div class="d-flex mb-3">
             <div class="me-2 flex-grow-1">
-              <%= form.label :document, "Selecione seu documento para anexar", class: "form-label" %>
-              <%= form.file_field :document, accept: '.pdf,.doc,.odt', class: "form-control", id: "document-field" %>
+              <%= form.label :documents, "Selecione seus documentos para anexar", class: "form-label" %>
+              <%= form.file_field :documents, accept: '.pdf,.doc,.odt', multiple: true, class: "form-control", id: "document-field" %>
             </div>
             <%= form.submit "Enviar Lista", class: "btn btn-warning align-self-end", id: "send-document-button" %>
           </div>
@@ -123,9 +124,8 @@
   </div>
 </main>
 
-
-    <script>
-        document.addEventListener("turbo:load", function() {
+<script>
+    document.addEventListener("turbo:load", function() {
         const documentField = document.getElementById("document-field");
         const sendDocumentButton = document.getElementById("send-document-button");
         const selectedCountSpan = document.getElementById("selected-count");
@@ -137,34 +137,33 @@
 
         // Função para habilitar/desabilitar o botão de envio
         function toggleSendButton() {
-        sendDocumentButton.disabled = documentField.files.length === 0;
-    }
+            sendDocumentButton.disabled = documentField.files.length === 0;
+        }
 
         // Adicionar evento de mudança ao campo de arquivo
         documentField.addEventListener("change", toggleSendButton);
 
         function updateSelectedCount() {
-        const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
-        selectedCountSpan.textContent = `Contatos Selecionados: ${selectedCount}`;
-    }
+            const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
+            selectedCountSpan.textContent = `Contatos Selecionados: ${selectedCount}`;
+        }
 
         function handleSelectAll() {
-        const isChecked = selectAllCheckbox.checked;
-        checkboxes.forEach(checkbox => {
-        checkbox.checked = isChecked;
-    });
-        updateSelectedCount();
-    }
+            const isChecked = selectAllCheckbox.checked;
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+            updateSelectedCount();
+        }
 
         if (selectAllCheckbox) {
-        selectAllCheckbox.addEventListener("change", handleSelectAll);
-    }
+            selectAllCheckbox.addEventListener("change", handleSelectAll);
+        }
 
         checkboxes.forEach(checkbox => {
-        checkbox.addEventListener("change", updateSelectedCount);
-    });
+            checkbox.addEventListener("change", updateSelectedCount);
+        });
 
         updateSelectedCount();
     });
 </script>
-
