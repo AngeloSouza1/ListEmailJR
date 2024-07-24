@@ -46,9 +46,8 @@ class ContactsController < ApplicationController
 
   def update
     if @contact.update(contact_params)
-      redirect_to @contact, notice: 'Contato atualizado com sucesso.'
+      redirect_to @contact
     else
-      Rails.logger.debug "Errors on update contact: #{@contact.errors.full_messages.join(", ")}"
       render :edit
     end
   end
@@ -63,9 +62,9 @@ class ContactsController < ApplicationController
     document = params[:document]
     if document.present?
       DocumentMailer.send_document(@contact, document).deliver_now
-      redirect_to @contact, notice: 'Document was successfully sent to the contact.'
+      redirect_to @contact
     else
-      redirect_to @contact, alert: 'No document provided.'
+      redirect_to @contact
     end
   end
 

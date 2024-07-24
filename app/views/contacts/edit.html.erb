@@ -13,17 +13,7 @@
         <h1 class="text-center">Editar Contato</h1>
 
         <%= form_with(model: @contact, local: true) do |form| %>
-          <% if @contact.errors.any? %>
-            <div id="error_explanation" class="alert alert-danger">
-              <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
 
-              <ul>
-                <% @contact.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
 
           <div class="mb-3">
             <%= form.label :name, "Nome", class: "form-label" %>

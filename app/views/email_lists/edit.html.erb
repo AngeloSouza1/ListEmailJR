@@ -60,7 +60,8 @@
 
           <div class="d-flex justify-content-between mb-3">
             <%= form.submit 'Salvar', class: 'btn btn-primary' %>
-            <%= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
+            <%#= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
+            <button type="button" class="btn btn-secondary" onclick="window.history.back();">Voltar</button>
           </div>
         <% end %>
 

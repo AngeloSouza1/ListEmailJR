@@ -9,7 +9,7 @@ class EmailListsController < ApplicationController
   end
 
   def show
-    
+
   end
 
   def new
@@ -19,7 +19,7 @@ class EmailListsController < ApplicationController
   end
 
   def edit
-     @contacts = current_user.contacts
+     @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc)
   end
 
 
@@ -42,9 +42,9 @@ class EmailListsController < ApplicationController
 
   def update
     if @email_list.update(email_list_params)
-      redirect_to email_lists_url
+      redirect_to email_lists_path
     else
-      @contacts = current_user.contacts
+      @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc)
       render :edit
     end
   end
