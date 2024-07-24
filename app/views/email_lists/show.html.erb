@@ -9,13 +9,13 @@
         <h2 class="text-center">Cadastro de Listas de Emails</h2>
         <p class="text-center"><strong>Aqui você cadastra uma lista de emails!</strong></p>
         <p class="text-center">Cadastre o nome e selecione os contatos para a lista de envio.</p>
-
         <!-- Botão para editar o texto do email -->
         <div class="text-center">
           <button id="edit-text-button" class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#editTextModal">Editar Texto do Email</button>
         </div>
       </div>
 
+      <%= render 'email_lists/error_messages', email_list: @email_list %>
 
     </div>
 
@@ -57,15 +57,17 @@
         <br>
         <br>
         <h5 class="mb-3">Enviar Documento</h5>
-        <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true do |form| %>
+        <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true, id: "send-document-form" do |form| %>
           <div class="d-flex mb-3">
             <div class="me-2 flex-grow-1">
               <%= form.label :document, "Selecione seu documento para anexar", class: "form-label" %>
-              <%= form.file_field :document, accept: '.pdf,.doc,.odt', class: "form-control" %>
+              <%= form.file_field :document, accept: '.pdf,.doc,.odt', class: "form-control", id: "document-field" %>
             </div>
-            <%= form.submit "Enviar Lista", class: "btn btn-warning align-self-end" %>
+            <%= form.submit "Enviar Lista", class: "btn btn-warning align-self-end", id: "send-document-button" %>
           </div>
         <% end %>
+
+
         <div class="mt-4">
           <%= link_to 'Editar', edit_email_list_path(@email_list), class: 'btn btn-primary me-2' %>
           <%= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
@@ -135,6 +137,7 @@
             updateSelectedCount();
         }
 
+
         // Event Listeners
         if (selectAllCheckbox) {
             selectAllCheckbox.addEventListener("change", function() {
@@ -153,4 +156,39 @@
 
         updateSelectedCount();
     });
-</script>
+
+
+    document.addEventListener("turbo:load", function() {
+        const sendDocumentButton = document.getElementById("send-document-button");
+        const documentField = document.getElementById("document-field");
+        const sendDocumentForm = document.getElementById("send-document-form");
+
+        if (sendDocumentButton) {
+            sendDocumentButton.addEventListener("click", function(event) {
+                if (documentField.files.length === 0) {
+                    event.preventDefault();
+                    alert("Por favor, selecione um documento antes de enviar.");
+                } else {
+                     console.log("Arquivo anexado:", documentField.files[0].name);
+                }
+            });
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </script>

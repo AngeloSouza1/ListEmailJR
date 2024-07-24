@@ -17,6 +17,8 @@ pt-BR:
               blank: "não pode ficar em branco"
             contact_ids:
               blank: "-> deve selecionar pelo menos um!"
+            document:
+              blank: "não pode ficar em branco"
     helpers:
       submit:
         email_list:

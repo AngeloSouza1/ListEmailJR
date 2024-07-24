@@ -7,6 +7,6 @@ class EmailList < ApplicationRecord
   # Validações
   validates :name, presence: true
   validates :contact_ids, presence: true
-
+  validates :document, presence: true
 
 end
