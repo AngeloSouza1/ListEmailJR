@@ -44,19 +44,19 @@ class EmailListsController < ApplicationController
 
 
   def update
-
     if @email_list.update(email_list_params)
       redirect_to email_lists_url, notice: 'A lista de e-mail foi atualizada com sucesso.'
     else
       @contacts = current_user.contacts
-      flash.now[:alert] = @email_list.errors.full_messages.join(', ')
+      Rails.logger.debug "EmailList update failed: #{@email_list.errors.full_messages.join(', ')}"
       render :edit
     end
   end
 
+
   def destroy
     @email_list.destroy
-    redirect_to email_lists_url, notice: 'A lista de e-mail foi destruída com sucesso.'
+    redirect_to email_lists_url
   end
 
   def send_document
@@ -71,12 +71,14 @@ class EmailListsController < ApplicationController
           )
           DocumentMailer.send_document(contact, document, text_email_content).deliver_now
         end
-        redirect_to @email_list, notice: 'O documento foi enviado com sucesso para a lista de e-mail.'
+        redirect_to @email_list
+        flash[:notice] = "Seu e-mail foi enviado com sucesso!"
       rescue StandardError => e
-        redirect_to @email_list, alert: "Falha ao enviar documento: #{e.message}"
+        redirect_to @email_list
+        flash[:alert] = "Falha ao enviar documento: #{e.message}"
       end
     else
-      redirect_to @email_list, alert: 'Nenhum arquivo de documento foi anexado.'
+      redirect_to @email_list
     end
   end
 

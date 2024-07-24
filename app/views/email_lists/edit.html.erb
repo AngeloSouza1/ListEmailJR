@@ -42,7 +42,7 @@
                   <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
                     <tr>
                       <td class="text-center">
-                        <%= cb.check_box class: "form-check-input contact-checkbox", checked: @email_list.contact_ids.include?(cb.object.id), data: { contactId: cb.object.id } %>
+                        <%= cb.check_box class: "form-check-input contact-checkbox", checked: @email_list.contact_ids.include?(cb.object.id) %>
                       </td>
                       <td><%= cb.label class: "form-check-label" %></td>
                       <td><small class="text-muted"><%= cb.object.email %></small></td>
@@ -58,13 +58,15 @@
             <% end %>
           </div>
 
-          <br>
-
           <div class="d-flex justify-content-between mb-3">
             <%= form.submit 'Salvar', class: 'btn btn-primary' %>
             <%= link_to 'Voltar', email_lists_path, class: 'btn btn-secondary' %>
           </div>
         <% end %>
+
+
+
+
       </div>
     </div>
   </div>

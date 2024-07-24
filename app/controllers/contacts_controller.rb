@@ -55,7 +55,7 @@ class ContactsController < ApplicationController
 
   def destroy
     @contact.destroy
-    redirect_to contacts_url, notice: 'Contato excluído com sucesso.'
+    redirect_to contacts_url
   end
 
   def send_document

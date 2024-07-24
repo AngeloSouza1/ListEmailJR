@@ -17,6 +17,31 @@
 
       <%= render 'email_lists/error_messages', email_list: @email_list %>
 
+      <% if flash[:notice] %>
+      <div style="max-width: 300px; width: 100%; margin-top: 1rem; border: 2px solid green;" class="rounded p-4 shadow-sm mx-auto">
+
+        <h4 class="alert-heading">Aviso:</h4>
+
+            <div>
+              <%= flash[:notice] %>
+            </div>
+       </div>
+      <% end %>
+
+      <%# if flash[:notice] %>
+<!--        <div class="alert alert-success">-->
+          <%#= flash[:notice] %>
+<!--        </div>-->
+      <%# end %>
+
+      <%# if flash[:alert] %>
+<!--        <div class="alert alert-danger">-->
+          <%#= flash[:alert] %>
+<!--        </div>-->
+      <%# end %>
+
+
+
     </div>
 
     <!-- Div da direita fixa na tela e ocupa o espaço restante -->
