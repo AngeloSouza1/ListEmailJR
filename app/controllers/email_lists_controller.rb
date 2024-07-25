@@ -57,7 +57,7 @@ class EmailListsController < ApplicationController
   end
 
   def send_document
-    text_email_content = @email_list.text_email || 'Não há conteúdo.'
+    text_email_content = @email_list.text_email
     if params[:documents].present? && params[:documents].is_a?(Array) # Verifica se há documentos enviados e se é um array
       begin
         # Coleta todos os documentos em um array

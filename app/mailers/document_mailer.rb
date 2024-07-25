@@ -12,7 +12,7 @@ class DocumentMailer < ApplicationMailer
 
     mail(to: @contact.email, subject: 'Meu currículo para sua apreciação') do |format|
       format.text { render plain: @text_email }
-      format.html { render html: @text_email.html_safe }
+      format.html { render 'send_documents' }
     end
   end
 end
