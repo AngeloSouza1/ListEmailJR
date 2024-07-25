@@ -24,7 +24,9 @@
           <div class="mb-3">
             <div class="d-flex align-items-center">
               <%= form.label :contacts, "Contatos", class: "form-label me-auto" %>
-              <span id="selected-count" class="ms-3">Contatos Selecionados: <%= @email_list.contact_ids.count %></span>
+              <span id="selected-count" class="ms-3">
+                Contatos Selecionados: <%= @selected_contacts.length %>
+              </span>
             </div>
             <% if @contacts.present? %>
               <div class="table-responsive" style="height: 200px; overflow-y: auto;">
@@ -42,9 +44,10 @@
                   <%= form.collection_check_boxes :contact_ids, @contacts, :id, :name do |cb| %>
                     <tr>
                       <td class="text-center">
-                        <%= cb.check_box class: "form-check-input", checked: @email_list.contact_ids.include?(cb.object.id) %>
+                        <%= cb.check_box class: "form-check-input contact-checkbox", checked: @selected_contacts.include?(cb.object) %>
                       </td>
                       <td><%= cb.label class: "form-check-label" %></td>
+
                       <td><small class="text-muted"><%= cb.object.email %></small></td>
                       <td><small class="text-muted"><%= cb.object.created_at.strftime("%d/%m/%Y %H:%M") %></small></td>
                       <td><small class="text-muted"><%= cb.object.updated_at.strftime("%d/%m/%Y %H:%M") %></small></td>
@@ -95,6 +98,7 @@
         const selectedCountSpan = document.getElementById("selected-count");
 
         function updateSelectedCount() {
+            // Conta o número de checkboxes marcados
             const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
             selectedCountSpan.textContent = `Contatos Selecionados: ${selectedCount}`;
         }
@@ -121,11 +125,8 @@
             });
         }
 
-
-
+        // Atualiza a contagem ao carregar a página
         updateSelectedCount();
     });
-
-
 </script>
 

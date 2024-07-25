@@ -20,6 +20,7 @@ class EmailListsController < ApplicationController
   def edit
     @email_list = EmailList.find(params[:id])
      @contacts = current_user.contacts
+    @selected_contacts = @email_list.contacts
   end
 
 
