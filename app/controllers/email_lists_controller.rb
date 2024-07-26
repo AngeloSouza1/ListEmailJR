@@ -19,7 +19,7 @@ class EmailListsController < ApplicationController
 
   def edit
     @email_list = EmailList.find(params[:id])
-     @contacts = current_user.contacts
+    @contacts = current_user.contacts
     @selected_contacts = @email_list.contacts
   end
 
@@ -29,7 +29,7 @@ class EmailListsController < ApplicationController
     if @email_list.save
       respond_to do |format|
         format.html { redirect_to  @email_list }
-        format.turbo_stream { redirect_to email_lists_path }
+        format.turbo_stream { redirect_to email_lists_path(created: true) }
       end
     else
       respond_to do |format|

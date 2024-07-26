@@ -6,12 +6,11 @@ class ContactsController < ApplicationController
   def index
     if current_user
       @contacts = current_user.contacts.order(updated_at: :desc, created_at: :desc)
-
       if @contacts.empty?
-        redirect_to new_contact_path, notice: 'Você ainda não tem nenhum contato. Crie um agora!.'
+        redirect_to new_contact_path
       end
     else
-      redirect_to new_user_session_path, alert: 'Você precisa fazer login ou registrar-se antes de continuar.'
+      redirect_to new_user_session_path
     end
   end
 

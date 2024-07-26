@@ -54,3 +54,14 @@
    </div>
 
 </div>
+
+<!-- index.html.erb -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('created')) {
+    // Força o refresh da página
+    window.location.reload();
+  }
+});
+</script>
