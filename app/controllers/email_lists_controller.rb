@@ -24,6 +24,7 @@ class EmailListsController < ApplicationController
   end
 
 
+
   def create
     @email_list = current_user.email_lists.build(email_list_params)
     if @email_list.save

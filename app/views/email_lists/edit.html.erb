@@ -15,6 +15,7 @@
         <h1 class="text-center">Editar Lista</h1>
 
         <%= form_with(model: @email_list, local: true) do |form| %>
+
           <div class="mb-3">
             <%= form.label :name, "Nome", class: "form-label" %>
             <%= form.text_field :name, class: "form-control" %>
@@ -63,6 +64,7 @@
             <%= form.submit 'Salvar', class: 'btn btn-primary' %>
             <button type="button" class="btn btn-secondary" onclick="window.history.back();">Voltar</button>
           </div>
+
         <% end %>
       </div>
     </div>
@@ -84,12 +86,10 @@
   }
 </style>
 
-<script>
 document.addEventListener("turbo:load", function() {
   const checkboxes = document.querySelectorAll(".contact-checkbox");
   const selectAllCheckbox = document.getElementById("select-all");
   const selectedCountSpan = document.getElementById("selected-count");
-  const form = document.querySelector("form");
 
   function updateSelectedCount() {
     const selectedCount = document.querySelectorAll(".contact-checkbox:checked").length;
@@ -121,14 +121,4 @@ document.addEventListener("turbo:load", function() {
   // Atualiza a contagem ao carregar a página
   updateSelectedCount();
 
-  // Força o refresh da página após o envio do formulário
-  if (form) {
-    form.addEventListener("submit", function(event) {
-      // Força o refresh da página após o envio do formulário
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000); // Aguarda 1 segundo para garantir que o formulário foi processado
-    });
-  }
 });
-</script>
