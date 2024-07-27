@@ -5,6 +5,7 @@ class EmailListsController < ApplicationController
 
   def index
      @email_lists = current_user.email_lists.order(updated_at: :desc)
+  
   end
 
   def show
@@ -21,6 +22,9 @@ class EmailListsController < ApplicationController
     @email_list = EmailList.find(params[:id])
     @contacts = current_user.contacts
     @selected_contacts = @email_list.contacts
+
+
+    
   end
 
 
