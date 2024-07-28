@@ -1,5 +1,25 @@
-<%= stylesheet_link_tag 'email_lists', media: 'all' %>
-
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Listas de Emails</title>
+  <%= stylesheet_link_tag 'email_lists', media: 'all' %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Verifica se a página já foi recarregada recentemente
+      if (!localStorage.getItem('pageReloaded')) {
+        // Marca que a página foi recarregada
+        localStorage.setItem('pageReloaded', 'true');
+        // Recarrega a página
+        window.location.reload();
+      } else {
+        // Remove o indicador para futuros acessos
+        localStorage.removeItem('pageReloaded');
+      }
+    });
+  </script>
+</head>
+<body>
 <div class="container-fluid">
   <div class="row vh-100">
     <div class="col-md-4 bg-dark text-white p-0">
@@ -11,7 +31,6 @@
     </div>
     <div class="col-md-8 d-flex justify-content-center align-items-center" style="height: 100vh;">
       <div style="max-width: 900px; width: 100%;" class="rounded p-4 shadow-sm bg-light">
-
         <br>
         <br>
         <br>
@@ -19,7 +38,6 @@
         <div class="d-flex justify-content-between mb-3">
           <%= link_to 'Nova Lista de Emails', new_email_list_path, class: 'btn btn-primary' %>
         </div>
-
         <div style="max-height: 399px; overflow-y: auto;">
           <table class="table table-hover table-striped table-bordered text-center">
             <thead class="thead-dark sticky-header">
@@ -49,8 +67,9 @@
         <br>
         <br>
         <p><strong>Total de Listas: <%= @email_lists.count %></strong></p>
-
+      </div>
     </div>
-   </div>
-
+  </div>
 </div>
+</body>
+</html>

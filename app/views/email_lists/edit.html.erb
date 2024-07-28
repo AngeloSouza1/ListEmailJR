@@ -1,21 +1,19 @@
 <main class="container-fluid">
   <div class="row vh-100">
     <div class="col-md-4 bg-dark text-white p-0">
-      <div style="max-width: 300px; width: 100%; margin-top: 7rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
+      <div class="rounded p-4 shadow-sm mx-auto" style="max-width: 300px; width: 100%; margin-top: 7rem; border: 2px solid yellow;">
         <h2 class="text-center">Edição de Listas de Emails</h2>
         <p class="text-center"><strong>Aqui você edita uma lista de emails!</strong></p>
         <p class="text-center">Edite o nome ou contatos para a lista de envio.</p>
       </div>
-
       <%= render 'email_lists/error_messages', contact: @email_list %>
     </div>
 
     <div class="col-md-8 d-flex justify-content-center align-items-start" style="height: 100%; margin-top: 0;">
-      <div style="max-width: 850px; width: 100%; padding: 1rem; margin-top: 5rem;" class="rounded p-4 shadow-sm bg-light">
+      <div class="rounded p-4 shadow-sm bg-light" style="max-width: 850px; width: 100%; padding: 1rem; margin-top: 5rem;">
         <h1 class="text-center">Editar Lista</h1>
 
         <%= form_with(model: @email_list, local: true) do |form| %>
-
           <div class="mb-3">
             <%= form.label :name, "Nome", class: "form-label" %>
             <%= form.text_field :name, class: "form-control" %>
@@ -23,13 +21,13 @@
 
           <div class="mb-3">
             <div class="d-flex align-items-center">
-              <%= form.label :contacts, "Contatos", class: "form-label me-auto" %>
+              <%= form.label :contact_ids, "Contatos", class: "form-label me-auto" %>
               <span id="selected-count" class="ms-3">
                 Contatos Selecionados: <%= @email_list.contact_ids.size %>
               </span>
             </div>
             <% if @contacts.present? %>
-              <div class="table-responsive" style="height: 200px; overflow-y: auto;">
+              <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered text-center">
                   <thead class="thead-dark sticky-header">
                     <tr>
@@ -64,27 +62,26 @@
             <%= form.submit 'Salvar', class: 'btn btn-primary' %>
             <button type="button" class="btn btn-secondary" onclick="window.history.back();">Voltar</button>
           </div>
-
         <% end %>
       </div>
     </div>
   </div>
 </main>
-
 <style>
-  .table-responsive {
-    max-height: 400px; /* Ajuste conforme necessário */
-    overflow-y: auto;
-  }
+.table-responsive {
+  max-height: 400px; /* Ajuste conforme necessário */
+  overflow-y: auto;
+}
 
-  .sticky-header {
-    position: sticky;
-    top: 0;
-    background-color: #343a40;
-    color: #fff;
-    z-index: 1;
-  }
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: #343a40;
+  color: #fff;
+  z-index: 1;
+}
 </style>
+
 <script>
 document.addEventListener("turbo:load", function() {
   const checkboxes = document.querySelectorAll(".contact-checkbox");
@@ -121,4 +118,5 @@ document.addEventListener("turbo:load", function() {
   // Atualiza a contagem ao carregar a página
   updateSelectedCount();
 });
+
 </script>
