@@ -167,6 +167,14 @@ h2 {
     margin-top: 150px;
 }
 
-
+#sent-message {
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.d-none {
+    display: none;
+}
 
 

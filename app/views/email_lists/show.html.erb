@@ -70,15 +70,21 @@
         <h5 class="mb-3">Enviar Documento</h5>
 
         <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true, id: "send-document-form" do |form| %>
-          <div class="d-flex mb-3">
+          <div id="document-section" class="d-flex mb-3">
             <div class="me-2 flex-grow-1">
-            
               <%= form.label :documents, "Selecione seus documentos para anexar", class: "form-label" %>
               <%= form.file_field :documents, accept: '.pdf,.doc,.odt', multiple: true, class: "form-control", id: "document-field" %>
-          
-              </div>
+            </div>
             <%= form.submit "Enviar Lista", class: "btn btn-warning align-self-end", id: "send-document-button" %>
           </div>
+        
+          <div id="success-message" class="alert alert-success d-none mt-3" role="alert">
+          📩 Enviando a lista!
+          </div>
+          
+
+
+          
         <% end %>
 
         <div class="mt-4">
@@ -138,9 +144,25 @@
         const selectedCountSpan = document.getElementById("selected-count");
         const checkboxes = document.querySelectorAll(".contact-checkbox");
         const selectAllCheckbox = document.getElementById("select-all");
-       
+        const form = document.getElementById("send-document-form");
+        const successMessage = document.getElementById("success-message");
+        const documentSection = document.getElementById("document-section");
 
-        // Desabilitar o botão de envio inicialmente
+ 
+    if (form && successMessage && documentSection) {
+      form.addEventListener("submit", function(event) {
+        // Mostrar a mensagem de sucesso
+        successMessage.classList.remove("d-none");
+
+        // Ocultar o componente de anexos
+        documentSection.style.display = "none";
+
+        // Desabilitar o botão de envio
+        sendDocumentButton.disabled = true;
+      });
+    }
+
+       // Desabilitar o botão de envio inicialmente
         sendDocumentButton.disabled = true;
 
         // Função para habilitar/desabilitar o botão de envio

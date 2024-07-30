@@ -15,4 +15,9 @@ class DocumentMailer < ApplicationMailer
       format.html { render 'send_documents' }
     end
   end
+
+
+
+
+  
 end
