@@ -1,11 +1,30 @@
 pt-BR:
-  errors:
-    messages:
-      not_found: "não encontrado."
-      already_confirmed: "já foi confirmado."
-      not_locked: "não está bloqueado."
-      not_saved:
-        one: "1 erro impediu este recurso de ser salvo:"
-        other: "%{count} erros impediram este recurso de ser salvo:"
-      confirmation_period_expired: "expirou, por favor, solicite um novo."
-      already_authenticated: "já está autenticado."
+  devise:
+    sessions:
+      user:
+        signed_in: "Login efetuado com sucesso."
+      signed_in: "Login efetuado com sucesso."
+    passwords:
+      no_token: "Token não encontrado."
+      user:
+        reset_password_token: "Token de redefinição de senha"
+      sent: "Instruções para recuperação de senha foram enviadas por e-mail."
+      updated: "Sua senha foi alterada com sucesso."
+      updated_not_active: "Sua senha foi alterada com sucesso, mas sua conta não está ativa."
+    confirmations:
+      user:
+        confirmed: "Sua conta foi confirmada com sucesso."
+      send_instructions: "Instruções para confirmação foram enviadas por e-mail."
+      send_paranoid_instructions: "Se o seu e-mail estiver registrado no nosso sistema, você receberá um e-mail com instruções sobre como confirmar sua conta em alguns minutos."
+    registrations:
+      user:
+        signed_up: "Bem-vindo! Você se registrou com sucesso."
+        signed_up_but_inactive: "Você se registrou com sucesso. Nós lhe enviaremos um e-mail quando sua conta for ativada."
+        signed_up_but_unconfirmed: "Você se registrou com sucesso. Nós lhe enviaremos um e-mail com instruções para confirmar sua conta."
+        updated: "Sua conta foi atualizada com sucesso."
+        update_needs_confirmation: "Você atualizou sua conta com sucesso, mas precisamos confirmar seu novo endereço de e-mail. Por favor, verifique sua caixa de entrada."
+    unlocks:
+      user:
+        unlocked: "Sua conta foi desbloqueada com sucesso. Por favor, faça login novamente para continuar."
+      send_instructions: "Instruções para desbloqueio da conta foram enviadas por e-mail."
+      send_paranoid_instructions: "Se o seu e-mail estiver registrado no nosso sistema, você receberá um e-mail com instruções sobre como desbloquear sua conta em alguns minutos."

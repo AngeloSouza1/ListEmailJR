@@ -84,7 +84,7 @@ class EmailListsController < ApplicationController
         # flash[:alert] = "Falha ao enviar documentos: #{e.message}"
       end
     else
-      # flash[:alert] = "Nenhum documento foi enviado."
+      # sflash[:alert] = "Nenhum documento foi enviado."
     end
     redirect_to @email_list
   end
