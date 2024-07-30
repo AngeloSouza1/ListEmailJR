@@ -80,7 +80,6 @@ class EmailListsController < ApplicationController
         end
 
         flash[:notice] = "Sua lista de e-mails foi enviada com sucesso!"
-     
       rescue StandardError => e
         # flash[:alert] = "Falha ao enviar documentos: #{e.message}"
       end
