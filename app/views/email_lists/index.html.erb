@@ -4,7 +4,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Listas de Emails</title>
+
 
   script>
   document.addEventListener("turbo:load", function() {
@@ -24,18 +24,16 @@
   <div class="row vh-100">
     <div class="col-md-4 bg-dark text-white p-0">
       <div style="max-width: 300px; width: 100%; margin-top: 10rem; border: 2px solid yellow;" class="rounded p-4 shadow-sm mx-auto">
-        <h2 class="text-center">Cadastro da Lista!</h2>
+        <h1 class="text-center">Cadastro da Lista!</h1>
         <p class="text-center"><strong>Aqui você cadastra uma lista de emails!</strong></p>
         <p class="text-center">Cadastre o nome e adicione os contatos na lista.</p>
       </div>
     </div>
+    
+    
     <div class="col-md-8 d-flex justify-content-center align-items-center" style="height: 100vh;">
-      <div style="max-width: 900px; width: 100%;" class="rounded p-4 shadow-sm bg-light">
-
-        <br>
-        <br>
-        <br>
-        <br>
+     <div style="max-width: 900px; width: 100%;" class="rounded p-4 shadow-sm bg-light">
+     
         <div class="d-flex justify-content-between mb-3">
           <%= link_to 'Nova Lista de Emails', new_email_list_path, class: 'btn btn-primary' %>
         </div>
