@@ -72,9 +72,11 @@
         <%= form_with url: send_document_email_list_path(@email_list), local: true, method: :post, multipart: true, id: "send-document-form" do |form| %>
           <div class="d-flex mb-3">
             <div class="me-2 flex-grow-1">
+            
               <%= form.label :documents, "Selecione seus documentos para anexar", class: "form-label" %>
               <%= form.file_field :documents, accept: '.pdf,.doc,.odt', multiple: true, class: "form-control", id: "document-field" %>
-            </div>
+          
+              </div>
             <%= form.submit "Enviar Lista", class: "btn btn-warning align-self-end", id: "send-document-button" %>
           </div>
         <% end %>
@@ -92,10 +94,9 @@
           <div class="mb-3">
             <%= form.label :text_email, "Digite aqui seu texto personalizado!", class: "form-label" %>
             <%= form.text_area :text_email, value: @email_list.text_email, rows: 10, class: "form-control text-email-field" %>
-          </div>
-          <div class="text-center">
-            <%= form.submit "Salvar", class: "btn btn-primary" %>
-          </div>
+       
+            </div>
+          
         <% end %>
       </div>
 
@@ -113,14 +114,15 @@
                   <%= form.label :text_email, "Digite aqui seu texto personalizado!", class: "form-label" %>
                   <%= form.text_area :text_email, value: @email_list.text_email, rows: 10, class: "form-control text-email-field" %>
                 </div>
-                <div class="text-center">
-                  <%= form.submit "Salvar", class: "btn btn-primary" %>
-                </div>
+            
               <% end %>
             </div>
           </div>
         </div>
       </div>
+
+
+
     </div>
   </div>
 </main>
@@ -132,6 +134,12 @@
         const selectedCountSpan = document.getElementById("selected-count");
         const checkboxes = document.querySelectorAll(".contact-checkbox");
         const selectAllCheckbox = document.getElementById("select-all");
+        const backButton = document.getElementById("backButton");
+
+        backButton.addEventListener("click", function() {
+          window.history.back(); // Voltar para a página anterior sem salvar
+        });
+
 
         // Desabilitar o botão de envio inicialmente
         sendDocumentButton.disabled = true;
@@ -166,5 +174,14 @@
         });
 
         updateSelectedCount();
-    });
+
+        if (!sessionStorage.getItem("reloaded")) {
+          sessionStorage.setItem("reloaded", "true");
+          location.reload(true);
+        } else {
+          sessionStorage.removeItem("reloaded");
+        }
+        });
+
+        
 </script>
