@@ -34,6 +34,27 @@ O projeto ListEmailJR é desenvolvido utilizando as seguintes tecnologias e gems
 
 🔹 Devise: Gem utilizada para funcionalidades de autenticação, registro de usuário e gerenciamento de sessões.
 
+---
+
+#### 💡 Veja!
+
+
+
+
+<br>
+🔹Video de demonstração
+
+
+
+
+https://github.com/user-attachments/assets/761ae781-acac-41cd-8093-e250229b9638
+
+
+
+
+
+---
+
 
 ### 📋 Instalação
 ---
