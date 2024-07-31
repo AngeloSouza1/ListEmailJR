@@ -30,7 +30,7 @@ O projeto ListEmailJR é desenvolvido utilizando as seguintes tecnologias e gems
 
 🔹 Ruby on Rails: Framework web utilizado para o desenvolvimento rápido e eficiente de aplicações web.
 
-🔹 PostgreSQL: Banco de dados relacional utilizado para armazenar informações dos usuários e listas de e-mails.
+🔹  SQLite3: Banco de dados relacional utilizado para armazenar informações dos usuários e listas de e-mails.
 
 🔹 Devise: Gem utilizada para funcionalidades de autenticação, registro de usuário e gerenciamento de sessões.
 
