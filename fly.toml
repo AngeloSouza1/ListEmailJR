@@ -1,0 +1,32 @@
+# fly.toml app configuration file generated for listemailjr on 2024-07-30T21:02:17-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'listemailjr'
+primary_region = 'gru'
+console_command = '/rails/bin/rails console'
+
+[build]
+
+[env]
+  DATABASE_URL = 'sqlite3:///data/production.sqlite3'
+
+[[mounts]]
+  source = 'data'
+  destination = '/data'
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  size = 'shared-cpu-1x'
+
+[[statics]]
+  guest_path = '/rails/public'
+  url_prefix = '/'
