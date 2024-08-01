@@ -54,7 +54,10 @@ https://github.com/user-attachments/assets/761ae781-acac-41cd-8093-e250229b9638
 
 
 ---
-
+🔹 Usuario para Teste:
+ 
+ - Email: 'user@example.com'
+ - Senha   : 'password123'
 
 ### 📋 Instalação
 ---
