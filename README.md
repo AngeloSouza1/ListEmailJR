@@ -85,6 +85,10 @@ bundle install
 rails db:migrate
 ```
 
+```bash
+rails db:seed
+```
+
  🔹 Inicie o servidor Rails:
 
   ```bash
