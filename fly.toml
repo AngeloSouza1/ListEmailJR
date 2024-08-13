@@ -9,13 +9,6 @@ console_command = '/rails/bin/rails console'
 
 [build]
 
-[env]
-  DATABASE_URL = 'sqlite3:///data/production.sqlite3'
-
-[[mounts]]
-  source = 'data'
-  destination = '/data'
-
 [http_service]
   internal_port = 3000
   force_https = true
@@ -25,8 +18,6 @@ console_command = '/rails/bin/rails console'
   processes = ['app']
 
 [[vm]]
-  size = 'shared-cpu-1x'
-
-[[statics]]
-  guest_path = '/rails/public'
-  url_prefix = '/'
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
